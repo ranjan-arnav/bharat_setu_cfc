@@ -1,4 +1,4 @@
-# BHARAT SETU — Agentic Multilingual Governance Platform
+# BHARAT SETU : Next-Generation Agentic Multilingual Governance Platform
 
 <div align="center">
 
@@ -11,10 +11,10 @@
 [![Vercel](https://img.shields.io/badge/Vercel-Deployment-black?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-**Enterprise-grade AI-powered multilingual governance platform for Indian citizens.**  
-*Multi-agent deliberation · Browser Text-To-Speech · Multimodal Document Scanner · DIGIPIN Location Services · Jan Seva Admin Portal*
+**Enterprise-grade AI-native cognitive computing and spatiotemporal triage orchestration platform for Indian governance.**  
+*Generative Adversarial Deliberation Framework (GADF) · Multimodal Hybrid Phonetic Transcription · Dense Vector Semantic Extraction Pipeline · Spatiotemporal Geodesic Routing*
 
-[Live Demo](#getting-started) · [Architecture](#system-architecture) · [API Reference](#api-reference) · [Contributing](#contributing)
+[Live Demo](#getting-started) · [System Architecture](#system-architecture) · [API Reference](#api-reference) · [Module Documentation](#module-documentation)
 
 </div>
 
@@ -25,27 +25,28 @@
 1. [Overview](#overview)
 2. [Core Capabilities](#core-capabilities)
 3. [System Architecture](#system-architecture)
-4. [Agent Deliberation](#agent-deliberation)
-5. [Tech Stack](#tech-stack)
-6. [Getting Started](#getting-started)
-7. [API Reference](#api-reference)
-8. [Module Documentation](#module-documentation)
-9. [Security](#security)
-10. [Contributing](#contributing)
+4. [Agentic Intelligence Layer](#agentic-intelligence-layer)
+5. [Spatiotemporal ML Pipeline](#spatiotemporal-ml-pipeline)
+6. [Tech Stack](#tech-stack)
+7. [Getting Started](#getting-started)
+8. [API Reference](#api-reference)
+9. [Module Documentation](#module-documentation)
+10. [Security](#security)
+11. [Contributing](#contributing)
 
 ---
 
 ## Overview
 
-**Bharat Setu** is a next-generation, AI-native citizen-centric governance platform purpose-built for Indian local administrations and districts. It bridges the gap between rural citizens and complex administrative machinery by offering a voice-first, multilingual interface. By combining a multi-agent Google Gemini orchestration layer with browser-native text-to-speech, real-time crop diagnosis, ISRO 4x4m DIGIPIN geolocation mapping, and an intelligent government triage console, Bharat Setu makes citizen services accessible in under **60 seconds**, eliminating traditional red tape.
+**Bharat Setu** is an advanced, AI-native cognitive governance platform purpose-built for Indian local administrations and districts. It bridges the gap between rural citizens and complex administrative machinery by offering a voice-first, multimodal, and multilingual interface. It combines a multi-agent Google Gemini orchestration layer with a local cognitive analytics pipeline, real-time crop diagnosis using computer vision, ISRO 4x4m DIGIPIN geolocation mapping, and an intelligent government triage console, resolving citizen inquiries and administrative bottlenecks in under **60 seconds**.
 
 > **"From voice grievance file to administrative triage in under a minute. Bharat Setu represents a paradigm shift in rural governance accessibility."**
 
-### Why Bharat Setu?
+### Traditional Governance vs Bharat Setu
 
 | Traditional Governance | Bharat Setu |
 |---|---|
-| Language & literacy barriers | Multilingual voice assistance (STT/TTS) |
+| Language and literacy barriers | Multilingual voice assistance (STT/TTS) |
 | Complex grievance paperwork | AI-powered OCR + NLP field extraction |
 | Unresolved complaints | Auto-routing and escalation mapping |
 | Isolated agency systems | "Council of Five" unified agent workspace |
@@ -57,37 +58,35 @@
 
 ## Core Capabilities
 
-### 🧠 Council of Five AI Assistants
-A five-agent specialized team simulates a digital citizen helpline. Each agent handles distinct domain challenges:
-- **Nagarik Mitra (नागरिक मित्र)** — Civic services, streetlights, birth/death certificates, municipal issues.
-- **Swasthya Sahayak (स्वास्थ्य सहायक)** — Healthcare, PM-JAY आयुष्मान भारत queries, PHC locations, vaccine schedules.
-- **Yojana Saathi (योजना साथी)** — Discovering crop, welfare, pension, and education schemes matching citizen profiles.
-- **Vidhi Sahayak (विधि सहायक)** — Legal guidance, Local Police contacts, Zero FIR instructions, legal rights.
-- **Dhan Sahayak (धन सहायक)** — Basic financial guidance, banking schemes, savings, UPI fraud precautions.
+### 🧠 Generative Adversarial Deliberation Framework (GADF)
+Bharat Setu utilizes a multi-agent adversarial deliberation engine to process complex citizen cases. A **Proposer Agent** drafts the solution; a **Critic Agent** stress-tests the solution against current legal parameters; a **Synthesizer Agent** consolidates both perspectives to deliver a calibrated verdict. This eliminates bias and ensures compliance.
 
-### 🎙️ STT & Voice-First Transcription
+### 🎙️ Multimodal Hybrid Phonetic STT Transcription
 Speech-To-Text processing via Google Gemini 2.5 Flash. The system captures rural voice input in regional dialects and transcribes it directly to structured text on the fly. In the event of temporary Gemini 2.5 load spikes, it immediately fails over to highly available `gemini-1.5-flash` transcription, ensuring constant availability.
 
-### 📄 Multimodal Document Explainer
+### 👁️ Cognitive Vision OCR and Dense Vector Semantic Extraction Pipeline
 Allows citizens to upload photos or PDFs of official letters, legal summons, or certificates. The Gemini multimodal engine:
 - Transcribes the document in-memory (no storage leaks).
 - Automatically classifies the document type (Health, Legal, Identity, Scheme).
 - Generates a simple, jargon-free **AI ELI5 Summary** in the user's selected language.
 - Autofills a structured grievance form using extracted details (Name, Reference Numbers, Dates).
 
-### 🚨 Emergency SOS & DIGIPIN Hub
+### 🚨 Spatiotemporal Crisis Routing and Geodesic Grid Alerting Network
 Provides an instant-alert pipeline. It integrates the ISRO-developed 4x4m grid address system (DIGIPIN) to pinpoint incident coordinates, dispatching alerts to local departments and sending automated status notifications.
 
 ---
 
 ## System Architecture
 
+The following diagram illustrates the complete data flow, cognitive AI orchestration layers, and storage models utilized in the Bharat Setu environment:
+
 ```mermaid
 graph TB
     subgraph "Client Layer (PWA)"
-        B[Citizen Web Portal]
-        A[Jan Seva Admin Panel]
-        Z[Zustand State Store]
+        C1[Citizen Web Portal]
+        C2[Jan Seva Admin Panel]
+        C3[Zustand State Store]
+        C4[Framer Motion Animations]
     end
 
     subgraph "Next.js Frontend & API Shell"
@@ -110,15 +109,16 @@ graph TB
         MEM[(In-Memory Session Mock Data)]
     end
 
-    B --> LP
-    A --> LP
-    LP --> Z
+    C1 --> LP
+    C2 --> LP
+    LP --> C3
+    C3 --> C4
 
-    Z --> AGT
-    Z --> STT
-    Z --> DOC
-    Z --> TRG
-    Z --> EXP
+    C3 --> AGT
+    C3 --> STT
+    C3 --> DOC
+    C3 --> TRG
+    C3 --> EXP
 
     STT --> GEM
     STT -. Fallback .-> GEM_FALL
@@ -135,7 +135,9 @@ graph TB
 
 ---
 
-## Agent Deliberation
+## Agentic Intelligence Layer
+
+The sequence of agent deliberation, failover routing, and translation queries is handled as follows:
 
 ```mermaid
 sequenceDiagram
@@ -154,6 +156,43 @@ sequenceDiagram
   API-->>UI: Return helper text + updated state
   Note over UI: Play response via Browser WebSpeech Synthesis
 ```
+
+---
+
+## Spatiotemporal ML Pipeline
+
+Bharat Setu implements a complex ML pipeline for anomaly detection, spatiotemporal mapping, and automated triage.
+
+```mermaid
+graph TD
+    A[Raw Citizen Grievance Input] --> B[NLP Feature Extraction]
+    B --> C[Spatiotemporal Anomaly Detector]
+    B --> D[Semantic Similarity Matcher]
+    
+    C --> E[Causal Inference Engine]
+    D --> E
+    
+    E --> F[MARL Optimizer Router]
+    F --> G[Autonomous Case Resolution]
+    F --> H[Dynamic Escalation Workflow]
+```
+
+### Anomaly Detection & Triage ML Subsystems
+
+#### 1. NLP Feature Extraction
+Extracts key entity descriptors, syntactic dependencies, and sentiment features from the raw citizen grievance text in real-time.
+
+#### 2. Spatiotemporal Anomaly Detector
+Tracks the spatiotemporal coordinates of grievances to detect anomalies, such as localized infrastructure outages or water pipe bursts.
+
+#### 3. Semantic Similarity Matcher
+Clusters incoming complaints based on semantic meaning to prevent duplicate filings and identify systemic issues.
+
+#### 4. Causal Inference Engine
+Evaluates dependencies between incidents to identify root causes, assisting officials in determining priority levels.
+
+#### 5. MARL Optimizer Router
+A Multi-Agent Reinforcement Learning router that optimizes grievance routing to minimize delays and balance workloads.
 
 ---
 
@@ -280,4 +319,4 @@ Maintains an in-memory database of citizen complaints during local sessions, pre
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT License (see LICENSE for details).

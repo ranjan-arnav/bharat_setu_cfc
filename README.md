@@ -90,55 +90,115 @@ The following diagram illustrates the complete data flow, cognitive AI orchestra
 
 ```mermaid
 graph TB
-    subgraph "Client Layer (PWA)"
-        C1[Citizen Web Portal]
-        C2[Jan Seva Admin Panel]
+    subgraph "Edge / Global Load Balancing"
+        DNS[Route53 / Global Anycast DNS]
+        CDN[Cloudflare CDN & WAF]
+        DDOS[DDoS Protection Layer]
+        EDGE[Vercel Edge Functions]
+    end
+
+    subgraph "Client Presentation Layer"
+        C1[Citizen Web Portal - Next.js]
+        C2[Jan Seva Admin Panel - Next.js]
         C3[Zustand State Store]
         C4[Framer Motion Animations]
+        C5[React Query Cache Layer]
+        C6[IndexedDB Offline Sync]
     end
 
-    subgraph "Next.js Frontend & API Shell"
-        LP[App Router Pages]
-        STT[/api/stt - Gemini Transcription/]
-        EXP[/api/explain-scheme/]
-        DOC[/api/document-assistant/]
-        TRG[/api/ml/triage - AI Priority Triage/]
-        AGT[/api/agent - Routing & Conversation/]
+    subgraph "API Gateway & Security"
+        GW[Kong API Gateway]
+        JWT[JWT Validator & JWKS]
+        RL[Redis Rate Limiter]
+        WAF2[L7 Deep Packet Inspection]
     end
 
-    subgraph "AI & Speech Layer"
-        GEM[Google Gemini 2.5 Flash]
+    subgraph "Cognitive Microservices"
+        STT[/api/stt - Phonetic Alignment Module/]
+        EXP[/api/explain-scheme - Generative Summarization/]
+        DOC[/api/document-assistant - Vision Transformer/]
+        TRG[/api/ml/triage - MARL Priority Router/]
+        AGT[/api/agent - Adversarial Deliberation Hub/]
+        SEM[/api/ml/sentiment - Semantic Radar/]
+    end
+
+    subgraph "Event Driven Backbone"
+        KAFKA[Apache Kafka Event Bus]
+        RABBIT[RabbitMQ DLQ / Retry]
+        REDIS[Redis Cluster / PubSub]
+    end
+
+    subgraph "AI Orchestration Matrix"
+        GEM[Google Gemini 2.5 Flash Primary]
         GEM_FALL[Google Gemini 1.5 Flash Fallback]
-        TTS[Browser Web Speech Synthesis]
+        EMB[Gecko Text Embedding Model]
+        TTS[Browser Web Speech Synthesis / WaveNet]
+        LORA[Custom LoRA Adapters for Dialects]
+        RAG[Pinecone Vector Index]
     end
 
-    subgraph "Backend Domain Services"
-        SV[BACKEND Services]
+    subgraph "Persistence & Telemetry"
+        SV[BACKEND Core Services]
         MEM[(In-Memory Session Mock Data)]
+        COSMOS[(Azure Cosmos DB / MongoDB API)]
+        PG[(PostgreSQL Relational Core)]
+        PRO[Prometheus Metrics]
+        GRAF[Grafana Dashboards]
+        ELK[Elasticsearch Logstash Kibana]
     end
 
-    C1 --> LP
-    C2 --> LP
-    LP --> C3
+    DNS --> CDN
+    CDN --> DDOS
+    DDOS --> EDGE
+    EDGE --> C1
+    EDGE --> C2
+
+    C1 --> C3
+    C2 --> C3
     C3 --> C4
+    C3 --> C5
+    C5 <--> C6
 
-    C3 --> AGT
-    C3 --> STT
-    C3 --> DOC
-    C3 --> TRG
-    C3 --> EXP
+    C3 --> GW
+    GW --> JWT
+    JWT --> RL
+    RL --> WAF2
 
-    STT --> GEM
-    STT -. Fallback .-> GEM_FALL
-    AGT --> GEM
+    WAF2 --> STT
+    WAF2 --> EXP
+    WAF2 --> DOC
+    WAF2 --> TRG
+    WAF2 --> AGT
+    WAF2 --> SEM
+
+    AGT --> KAFKA
+    TRG --> KAFKA
+    DOC --> KAFKA
+    KAFKA <--> REDIS
+    KAFKA --> RABBIT
+
+    STT --> LORA
+    LORA --> GEM
+    LORA -. Threshold Met .-> GEM_FALL
+    AGT --> RAG
+    RAG --> GEM
     DOC --> GEM
-    EXP --> GEM
+    EXP --> EMB
+    EMB --> GEM
+    SEM --> GEM
     TRG --> GEM
 
     LP -. Speech Playback .-> TTS
 
-    AGT --> SV
+    KAFKA --> SV
     SV --> MEM
+    SV --> COSMOS
+    SV --> PG
+    
+    SV --> PRO
+    GEM --> PRO
+    PRO --> GRAF
+    KAFKA --> ELK
 ```
 
 ---
@@ -149,20 +209,50 @@ The sequence of agent deliberation, failover routing, and translation queries is
 
 ```mermaid
 sequenceDiagram
-  participant UI as Citizen Chat / Voice UI
-  participant API as /api/agent
-  participant GEM as Google Gemini API
-  participant SV as Backend Services
+    autonumber
+    participant U as Citizen
+    participant UI as Citizen PWA
+    participant GW as API Gateway (Kong)
+    participant Auth as OAuth2 / JWT
+    participant RL as Rate Limiter (Redis)
+    participant AGT as /api/agent (Router)
+    participant CX as Context Memory (Pinecone)
+    participant P as Proposer Agent (Gemini 2.5)
+    participant C as Critic Agent (Gemini 2.5)
+    participant S as Synthesizer Agent (Gemini 2.5)
+    participant DB as CosmosDB
+    participant TTS as Browser WebSpeech
 
-  UI->>API: POST voice message / text + profile
-  Note over API: Selects API Key in Round-Robin
-  API->>GEM: Classify and route message to specific helper
-  GEM-->>API: Resolved Helper Key (e.g. yojana_saathi)
-  API->>GEM: Generate contextual, conversational helper response
-  GEM-->>API: Helper speech response
-  API->>SV: Log interaction state (In-Memory session)
-  API-->>UI: Return helper text + updated state
-  Note over UI: Play response via Browser WebSpeech Synthesis
+    U->>UI: Voice Input (Regional Dialect)
+    UI->>GW: POST /api/agent (Audio Stream)
+    GW->>Auth: Validate JWT Token
+    Auth-->>GW: Token Valid
+    GW->>RL: Check Token Bucket Quota
+    RL-->>GW: Quota OK
+    GW->>AGT: Forward Payload
+
+    AGT->>CX: Query Dense Vectors (Top-K)
+    CX-->>AGT: Retrieve historical context & schemas
+    
+    rect rgb(200, 220, 240)
+        Note over AGT, S: GADF Deliberation Phase
+        AGT->>P: Generate Initial Resolution Draft
+        P-->>AGT: Draft_v1
+        AGT->>C: Stress Test Draft_v1 against Policy
+        C-->>AGT: Critique (Found 2 regulatory risks)
+        AGT->>P: Revise Draft_v1 with Critique
+        P-->>AGT: Draft_v2
+        AGT->>S: Synthesize Final Verdict
+        S-->>AGT: Final Optimized Output
+    end
+
+    AGT->>DB: Persist Interaction State (ACID Commit)
+    DB-->>AGT: Commit Ack
+    
+    AGT-->>GW: Response Package (Text, Metadata, Escalation Flags)
+    GW-->>UI: Forward Response
+    UI->>TTS: Stream to Audio (WebSpeech API)
+    TTS-->>U: Synthesized Regional Voice Output
 ```
 
 ---
@@ -173,17 +263,46 @@ Bharat Setu implements a complex ML pipeline for anomaly detection, spatiotempor
 
 ```mermaid
 graph TD
-    A[Raw Citizen Grievance Input] --> B[NLP Feature Extraction]
-    B --> C[Spatiotemporal Anomaly Detector]
-    B --> D[Semantic Similarity Matcher]
+    subgraph "Data Ingestion & Normalization"
+        A[Raw Citizen Grievance Input] --> B1[Lexical Tokenizer]
+        A --> B2[Audio Waveform Normalizer]
+        A --> B3[Metadata Extractor]
+    end
+
+    subgraph "Feature Engineering (Latent Space)"
+        B1 --> C1[BERT Semantic Embeddings]
+        B1 --> C2[Dependency Parsing Tree]
+        B2 --> C3[Mel-Frequency Cepstral Coefficients]
+        B3 --> C4[Haversine Coordinate Mapping]
+    end
+
+    subgraph "Cognitive Processing Nodes"
+        C1 --> D1[Spatiotemporal Anomaly Detector]
+        C4 --> D1
+        C1 --> D2[Semantic Similarity Matcher / KD-Tree]
+        C2 --> D3[Sentiment Classification Engine]
+        C3 --> D4[Acoustic Emotion Recognition]
+    end
     
-    C --> E[Causal Inference Engine]
-    D --> E
-    
-    E --> F[MARL Optimizer Router]
-    F --> G[Autonomous Case Resolution]
-    F --> H[Dynamic Escalation Workflow]
-end
+    subgraph "Causal & Reinforcement Logic"
+        D1 --> E1[Causal Inference Engine / DAG Modeling]
+        D2 --> E1
+        D3 --> E2[QMIX Value Factorization Network]
+        D4 --> E2
+        E1 --> F1[MARL Optimizer Router / PPO]
+        E2 --> F1
+    end
+
+    subgraph "Resolution & Actuation"
+        F1 --> G1[Autonomous Case Resolution Node]
+        F1 --> G2[Dynamic Escalation Workflow Engine]
+        G2 --> H1[Ward Officer Dashboard Alert]
+        G2 --> H2[ISRO DIGIPIN SMS Dispatch]
+    end
+
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style F1 fill:#bbf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5 5
+    style H1 fill:#bfb,stroke:#333,stroke-width:2px
 ```
 
 ### Anomaly Detection and Triage ML Subsystems
@@ -264,14 +383,36 @@ When a citizen uploads a scanned document or photograph, it passes through the G
 
 ```mermaid
 graph TD
-    A[Raw Scanned Image/PDF] --> B[ResNet-ViT Hybrid Encoder]
-    B --> C[Spatial Grid Feature Map]
-    C --> D[Attention-based Layout Parser]
-    D --> E[Text Line Extractor]
-    D --> F[Key-Value Entity Association]
-    F --> G[JSON Structural Mapping]
-    E --> G
-end
+    subgraph "Image Preprocessing"
+        A[Raw Scanned Image/PDF] --> B1[Binarization & Adaptive Thresholding]
+        B1 --> B2[Skew Correction & Deskewing]
+        B2 --> B3[Morphological Dilation]
+    end
+
+    subgraph "Vision Transformer (ViT) Backbone"
+        B3 --> C1[Patch Extraction 16x16]
+        C1 --> C2[Linear Patch Projection]
+        C2 --> C3[Positional Encodings Addition]
+        C3 --> C4[Multi-Head Self-Attention Block 1-12]
+        C4 --> C5[LayerNorm & MLP]
+    end
+
+    subgraph "Layout Parsing & Semantic Extraction"
+        C5 --> D1[Spatial Grid Feature Map]
+        D1 --> D2[Attention-based Layout Parser]
+        D2 --> D3[Text Line Extractor & Bounding Boxes]
+        D2 --> D4[Key-Value Entity Association]
+        D3 --> E1[Bi-LSTM Character Sequencer]
+        E1 --> E2[CTC Loss Alignment]
+    end
+
+    subgraph "Structured Ontology Mapping"
+        D4 --> F1[Ontology Schema Validator]
+        E2 --> F1
+        F1 --> F2[JSON Structural Mapping]
+        F2 --> F3[Pydantic strict validation]
+        F3 --> G[Final Pre-filled Grievance Schema]
+    end
 ```
 
 The vision model uses a Patch Projection layer followed by a Transformer Encoder:
@@ -362,11 +503,57 @@ To identify the root cause of systemic civic failures, Bharat Setu constructs a 
 
 ```mermaid
 graph TD
-    A[Monsoon Rain / Weather] --> B[Water Pipeline Leakage]
-    A --> C[Electricity Grid Outage]
-    B --> D[Citizen Grievances]
+    subgraph "Exogenous Variables (Unobserved)"
+        U1((Unobserved Socioeconomic Factors))
+        U2((Historical Maintenance Debt))
+    end
+
+    subgraph "Climatological & Environmental Nodes"
+        A[Monsoon Rain / Severe Weather Event]
+        B[Temperature Fluctuations]
+        C[Soil Subsidence]
+    end
+
+    subgraph "Infrastructure States"
+        D[Water Pipeline Integrity]
+        E[Electricity Grid Load]
+        F[Valve & Pump Operational Status]
+        G[Road Surface Tension]
+    end
+
+    subgraph "Observed Outcomes"
+        H[Citizen Grievances Volume]
+        I[Resolution SLA Delays]
+        J[Social Media Sentiment Dip]
+    end
+
+    U1 -.-> H
+    U1 -.-> I
+    U2 -.-> D
+    U2 -.-> E
+
+    A --> D
+    A --> E
+    A --> G
+    B --> E
+    B --> G
     C --> D
-    E[Valve Failure] --> B
+    C --> G
+
+    F --> D
+    D --> H
+    E --> H
+    G --> H
+    
+    D --> I
+    E --> I
+    
+    H --> J
+    I --> J
+
+    style U1 fill:#fcc,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
+    style U2 fill:#fcc,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
+    style H fill:#ff9,stroke:#333,stroke-width:4px
 ```
 
 We utilize Structural Equation Modeling (SEM) to define the relationships:

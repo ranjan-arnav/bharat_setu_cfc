@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Bureaucracy X-Ray Tracker</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f29e0d",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#0a1628",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+            <h1 class="text-lg font-bold tracking-tight" data-i18n="bureaucracyXray">🔍 Bureaucracy X-Ray</h1>
+        </div>
+        <button class="flex items-center gap-1 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20"><span data-i18n="allApps">All Apps</span><span class="material-symbols-outlined text-sm">expand_more</span>
+        </button>
+    </header>
+    <main class="flex-1 overflow-y-auto pb-24">
+        <div class="p-4">
+            <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800/50 dark:to-slate-900/50 border border-slate-200 dark:border-white/10 p-5 shadow-xl backdrop-blur-lg">
+                <div class="absolute top-0 right-0 p-4 opacity-20">
+                    <span class="material-symbols-outlined text-6xl">account_balance</span>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-primary mb-1 block" data-i18n="activeApplication">Active
+                                Application</span>
+                            <h2 class="text-xl font-bold" data-i18n="pmfbyCropInsuranceClaim">PMFBY Crop Insurance Claim</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1" data-i18n="pmfby2026dum4521">#PMFBY-2026-DUM-4521</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-bold text-slate-900 dark:text-white">₹25,000</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+                        <span class="material-symbols-outlined text-sm">verified_user</span>
+                        <span><span data-i18n="filedVia">Filed via</span><span class="text-primary font-semibold" data-i18n="yojanaSaathi">Yojana Saathi</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-6 mb-8">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-6" data-i18n="trackingTimeline">Tracking Timeline</h3>
+            <div class="space-y-0">
+                <div class="flex gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-6 rounded-full bg-green-500 flex items-center justify-center z-10">
+                            <span class="material-symbols-outlined text-xs text-white">check</span>
+                        </div>
+                        <div class="w-0.5 h-12 bg-green-500/30"></div>
+                    </div>
+                    <div class="pt-0.5">
+                        <p class="font-bold text-slate-900 dark:text-slate-100" data-i18n="applicationSubmitted">Application Submitted</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="28FebDigitalReceipt">✅ 28 Feb • Digital Receipt Generated</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-6 rounded-full bg-green-500 flex items-center justify-center z-10">
+                            <span class="material-symbols-outlined text-xs text-white">check</span>
+                        </div>
+                        <div class="w-0.5 h-12 bg-green-500/30"></div>
+                    </div>
+                    <div class="pt-0.5">
+                        <p class="font-bold text-slate-900 dark:text-slate-100" data-i18n="documentsVerified">Documents Verified</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400"><span data-i18n="landRecordsFetchedVia">✅ land records fetched via</span><span class="text-blue-400" data-i18n="digipin">DIGIPIN</span></p>
+                    </div>
+                </div>
+                <div class="flex gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-6 rounded-full bg-green-500 flex items-center justify-center z-10">
+                            <span class="material-symbols-outlined text-xs text-white">check</span>
+                        </div>
+                        <div class="w-0.5 h-12 bg-primary/30"></div>
+                    </div>
+                    <div class="pt-0.5">
+                        <p class="font-bold text-slate-900 dark:text-slate-100" data-i18n="forwardedToBlockOffice">Forwarded to Block Office</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="1MarReceivedBy">✅ 1 Mar • Received by BDO Desk</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-6 rounded-full bg-primary flex items-center justify-center z-10 ring-4 ring-primary/20 animate-pulse">
+                            <span class="material-symbols-outlined text-xs text-white">pending</span>
+                        </div>
+                        <div class="w-0.5 h-16 bg-slate-300 dark:bg-slate-700/50"></div>
+                    </div>
+                    <div class="pt-0.5">
+                        <p class="font-bold text-primary" data-i18n="underReviewByAgriculture">Under Review by Agriculture Dept</p>
+                        <div class="mt-1 bg-primary/5 border border-primary/20 rounded-lg p-2">
+                            <p class="text-xs font-semibold text-slate-700 dark:text-slate-200" data-i18n="shriRkSinghBdo">Shri R.K. Singh, BDO</p>
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-tighter" data-i18n="avgProcessing23Days">Avg processing: 2-3 days
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-6 rounded-full border-2 border-slate-300 dark:border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center z-10">
+                        </div>
+                        <div class="w-0.5 h-12 bg-slate-300 dark:bg-slate-700/50"></div>
+                    </div>
+                    <div class="pt-0.5">
+                        <p class="font-medium text-slate-500" data-i18n="amountSanctioned">Amount Sanctioned</p>
+                        <p class="text-sm text-slate-600" data-i18n="pendingReviewCompletion">Pending review completion</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-6 rounded-full border-2 border-slate-200 dark:border-slate-700 bg-slate-900/50 flex items-center justify-center z-10">
+                        </div>
+                    </div>
+                    <div class="pt-0.5">
+                        <p class="font-medium text-slate-500" data-i18n="dbtToBankAc">DBT to Bank A/C</p>
+                        <p class="text-sm text-slate-600" data-i18n="finalDisbursementStep">Final disbursement step</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 mb-6">
+            <div class="bg-primary/5 border border-primary/30 rounded-xl p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-primary/20 rounded-lg">
+                        <span class="material-symbols-outlined text-primary">event_upcoming</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium" data-i18n="expectedCompletion">Expected Completion</p>
+                        <p class="font-bold text-slate-900 dark:text-slate-100" data-i18n="45Mar2026">4-5 Mar 2026</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded" data-i18n="3DaysLeft">3 DAYS LEFT</span>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 mb-8">
+            <div class="rounded-xl border border-amber-500/40 bg-amber-500/5 backdrop-blur-sm p-4">
+                <div class="flex gap-3 mb-3">
+                    <span class="material-symbols-outlined text-amber-500">warning</span>
+                    <div>
+                        <p class="font-bold text-amber-700 dark:text-amber-200" data-i18n="applicationStuckFor48">Application stuck for &gt; 48 hours?</p>
+                        <p class="text-xs text-amber-700/80 dark:text-amber-200/60 leading-relaxed mt-1"><span data-i18n="directEscalationVia">Direct escalation via</span><span class="font-bold" data-i18n="arthikSalahkar">Arthik Salahkar</span><span data-i18n="rtiOr">(RTI) or</span><span class="font-bold" data-i18n="vidhiSahayak">Vidhi Sahayak</span><span data-i18n="cpgrams">(CPGRAMS).</span></p>
+                    </div>
+                </div>
+                <button class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg text-sm transition-colors" data-i18n="escalateNow">
+                    Escalate Now
+                </button>
+            </div>
+        </div>
+        <div class="px-4 mb-6">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4 px-1" data-i18n="otherApplications">Other Applications</h3>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-200/50 dark:border-slate-700/50">
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 rounded bg-blue-500/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-blue-400">medical_services</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold" data-i18n="ayushmanBharat">Ayushman Bharat</p>
+                            <div class="w-32 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-blue-400 w-[60%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400">60%</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-200/50 dark:border-slate-700/50">
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 rounded bg-orange-500/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-orange-400">home</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold" data-i18n="pmAwasYojana">PM Awas Yojana</p>
+                            <p class="text-[10px] text-slate-500" data-i18n="step1Of6">Step 1 of 6</p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-500">chevron_right</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-200/50 dark:border-slate-700/50 opacity-70">
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 rounded bg-green-500/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-green-400">check_circle</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-300 line-through" data-i18n="rationCardRenewal">Ration Card
+                                Renewal</p>
+                            <p class="text-[10px] text-green-400" data-i18n="completed">Completed</p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-500">chevron_right</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <nav class="fixed bottom-0 left-0 right-0 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-4 py-2">
+        <div class="flex justify-between items-center max-w-md mx-auto">
+            <a class="flex flex-col items-center gap-1 p-2 text-slate-500" href="#">
+                <span class="material-symbols-outlined">home</span>
+                <span class="text-[10px] font-bold uppercase tracking-tighter" data-i18n="home">Home</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 p-2 text-primary" href="#">
+                <span class="material-symbols-outlined fill-1">insights</span>
+                <span class="text-[10px] font-bold uppercase tracking-tighter" data-i18n="track">Track</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 p-2 text-slate-500" href="#">
+                <span class="material-symbols-outlined">grid_view</span>
+                <span class="text-[10px] font-bold uppercase tracking-tighter" data-i18n="services">Services</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 p-2 text-slate-500" href="#">
+                <span class="material-symbols-outlined">person</span>
+                <span class="text-[10px] font-bold uppercase tracking-tighter" data-i18n="profile">Profile</span>
+            </a>
+        </div>
+    </nav>
+    <script>
+            (function () {
+                function syncTheme() {
+                    try {
+                        var isDark = window.parent.document.documentElement.classList.contains('dark');
+                        document.documentElement.classList.toggle('dark', isDark);
+                    } catch (e) { }
+                }
+                syncTheme();
+                window.addEventListener('message', function (e) {
+                    if (e.data && e.data.action === 'sync-theme') {
+                        document.documentElement.classList.toggle('dark', e.data.theme === 'dark');
+                    }
+                });
+            })();
+    </script>
+
+
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

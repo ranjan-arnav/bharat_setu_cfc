@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Bharat-Setu Home Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#FF9933", // Saffron inspired
+            "secondary": "#138808", // Green inspired
+            "tertiary": "#000080", // Chakra blue inspired
+            "background-light": "#f6f6f8",
+            "background-dark": "#111621",
+          },
+          fontFamily: {
+            "display": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body
+  class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex justify-center">
+  <!-- Mobile Container -->
+  <div
+    class="relative flex h-full min-h-screen w-full max-w-md flex-col bg-white dark:bg-gray-900 overflow-hidden shadow-2xl">
+    <!-- Header -->
+    <div
+      class="flex items-center justify-between px-5 pt-12 pb-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-100 dark:border-gray-800">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-3xl">temple_hindu</span>
+        <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Bharat-Setu</h2>
+      </div>
+      <button
+        class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative">
+        <span class="material-symbols-outlined text-slate-700 dark:text-gray-300">notifications</span>
+        <span
+          class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
+      </button>
+    </div>
+    <!-- Scrollable Content -->
+    <div class="flex-1 overflow-y-auto pb-24 scrollbar-hide">
+      <!-- Hero / Greeting -->
+      <div class="px-5 pt-6 pb-2">
+        <p id="current-date" class="text-slate-500 dark:text-gray-400 text-sm font-medium mb-1">Thursday, 24 Oct</p>
+        <h1 id="user-greeting" class="text-[32px] font-bold leading-tight text-slate-900 dark:text-white">Namaste,
+          नागरिक!</h1>
+        <p data-i18n="helpToday" class="text-slate-600 dark:text-gray-300 text-lg mt-1">How can we help today?</p>
+      </div>
+      <!-- Voice Action Area -->
+      <div class="px-5 py-6">
+        <button
+          class="group w-full relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-orange-500 shadow-lg shadow-orange-500/20 active:scale-[0.98] transition-all duration-200">
+          <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="flex flex-col items-center justify-center py-8 gap-3">
+            <div class="bg-white/20 p-4 rounded-full backdrop-blur-sm animate-pulse">
+              <span class="material-symbols-outlined text-white text-4xl">mic</span>
+            </div>
+            <div class="text-center">
+              <span data-i18n="tapToSpeak" class="block text-white text-xl font-bold">Tap to Speak / बोलें</span>
+              <span data-i18n="allLangsSupported" class="block text-white/80 text-sm font-medium mt-1">All 22 official languages supported</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <!-- Council of Five Agents -->
+      <div class="px-5 pb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 data-i18n="councilTitle" class="text-lg font-bold text-slate-900 dark:text-white">Council of Five Agents</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Agent 1: Civic -->
+          <div
+            class="bg-background-light dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center gap-3 hover:shadow-md transition-shadow cursor-pointer">
+            <div
+              class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+              <span class="material-symbols-outlined">diversity_3</span>
+            </div>
+            <div>
+              <h3 data-i18n="agentNM" class="font-bold text-slate-900 dark:text-white text-sm">Nagarik Mitra</h3>
+              <p data-i18n="agentNMSub" class="text-xs text-slate-500 dark:text-gray-400">Civic Services</p>
+            </div>
+          </div>
+          <!-- Agent 2: Health -->
+          <div
+            class="bg-background-light dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center gap-3 hover:shadow-md transition-shadow cursor-pointer">
+            <div
+              class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-secondary dark:text-green-400">
+              <span class="material-symbols-outlined">medical_services</span>
+            </div>
+            <div>
+              <h3 data-i18n="agentSS" class="font-bold text-slate-900 dark:text-white text-sm">Swasthya Sahayak</h3>
+              <p data-i18n="agentSSSub" class="text-xs text-slate-500 dark:text-gray-400">Health &amp; Care</p>
+            </div>
+          </div>
+          <!-- Agent 3: Welfare -->
+          <div
+            class="bg-background-light dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center gap-3 hover:shadow-md transition-shadow cursor-pointer">
+            <div
+              class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-tertiary dark:text-blue-400">
+              <span class="material-symbols-outlined">handshake</span>
+            </div>
+            <div>
+              <h3 data-i18n="agentYS" class="font-bold text-slate-900 dark:text-white text-sm">Yojana Saathi</h3>
+              <p data-i18n="agentYSSub" class="text-xs text-slate-500 dark:text-gray-400">Welfare Schemes</p>
+            </div>
+          </div>
+          <!-- Agent 4: Finance -->
+          <div
+            class="bg-background-light dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center gap-3 hover:shadow-md transition-shadow cursor-pointer">
+            <div
+              class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-700 dark:text-yellow-400">
+              <span class="material-symbols-outlined">currency_rupee</span>
+            </div>
+            <div>
+              <h3 data-i18n="agentAS" class="font-bold text-slate-900 dark:text-white text-sm">Arthik Salahkar</h3>
+              <p data-i18n="agentASSub" class="text-xs text-slate-500 dark:text-gray-400">Finance &amp; Loans</p>
+            </div>
+          </div>
+          <!-- Agent 5: Legal (Full Width) -->
+          <div
+            class="col-span-2 bg-background-light dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer">
+            <div
+              class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0">
+              <span class="material-symbols-outlined">gavel</span>
+            </div>
+            <div class="flex-1">
+              <h3 data-i18n="agentVS" class="font-bold text-slate-900 dark:text-white text-sm">Vidhi Sahayak</h3>
+              <p data-i18n="agentVSSub" class="text-xs text-slate-500 dark:text-gray-400">Legal Aid &amp; Rights</p>
+            </div>
+            <span class="material-symbols-outlined text-slate-400">chevron_right</span>
+          </div>
+        </div>
+      </div>
+      <!-- ISRO DIGIPIN Status -->
+      <div class="px-5 pb-8">
+        <div
+          class="bg-gradient-to-br from-slate-900 to-tertiary rounded-xl p-4 text-white shadow-lg overflow-hidden relative cursor-pointer hover:opacity-90 transition-opacity"
+          onclick="window.parent.postMessage({source:'bharat-setu-iframe',action:'open-overlay',overlay:'digipin'},'*')">
+          <!-- Background Map Effect -->
+          <div class="absolute inset-0 opacity-20 bg-cover bg-center" data-alt="Dark stylized map background pattern"
+            data-location="India Map Texture"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCTe_GkZe2MI7JTvy11bS2mvVnuSIK_P1e_knBqGrn2wTnVqXtg2PPiSfnbQayHd_f_1lRebRroeNmX91NisFda3aLKg4kKoTL0IFdjxxwWTiKoGQUYCC_cg2TupVkF2K1yx8rieBP_ukU51KAtxDw0h769Gsb-lXfseXhntm5hVpHfYoPukNLRm3eur0H_ZdBf9PbXI8uGVx7xr0dGckDTGmSrd6QCN0JYKDZBe4G7f_4cOlsVg4pLpg6ZebEPPdEzM-_VCT6BTpY')">
+          </div>
+          <div class="relative z-10 flex items-center gap-4">
+            <div class="h-16 w-16 rounded-lg overflow-hidden border-2 border-white/30 shrink-0 bg-slate-800">
+              <img alt="Satellite view map preview" class="w-full h-full object-cover"
+                data-alt="Satellite map view of rural location" data-location="Uttar Pradesh, India"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-SN1ITynOZO2Ux3d4O1pf3fO0OIv_TSo-3j9TO5P7nob76S3Ln7IPYmRBoEZKmt5pZtkikJAyCylYp__6mADCZP4mjjHkTxPNw5mnBYAPIqTmjdgAiY1QR_uCpuqJNF2mq-LA7HoyyfbmFxSMG05R__2xfZYkuAtlHFwHWUSamynX9knXxAs68TMQdmfumIeCTzwuNlbqkab7GAbxQNDZowT_PM3HgIUnerJ4chUN0_p3yVFpsG8X9KSHgmTiVE0ALNGncJ2MAaU" />
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="material-symbols-outlined text-green-400 text-lg">satellite_alt</span>
+                <span data-i18n="isroActive" class="text-xs font-bold uppercase tracking-wider text-green-400">ISRO DIGIPIN Active</span>
+              </div>
+              <div id="digipin-display" class="font-mono text-xl font-bold tracking-widest text-white">88-H2K-99L1</div>
+              <p data-i18n="digipinPrecision" class="text-[10px] text-slate-300 mt-1">Precision: 4x4m Grid • Tap to Know Your DIGIPIN 📮</p>
+            </div>
+            <span class="material-symbols-outlined text-slate-400">chevron_right</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom Navigation -->
+    <div
+      class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-4 pb-6 pt-2">
+      <div class="flex justify-between items-end">
+        <a class="flex flex-1 flex-col items-center justify-end gap-1" href="#">
+          <div class="text-primary flex h-7 items-center justify-center">
+            <span class="material-symbols-outlined fill-current" style="font-variation-settings: 'FILL' 1;">home</span>
+          </div>
+          <p data-i18n="navHome" class="text-primary text-[10px] font-bold">Home</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1" href="#">
+          <div
+            class="text-slate-400 dark:text-slate-500 flex h-7 items-center justify-center hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+            <span class="material-symbols-outlined">article</span>
+          </div>
+          <p data-i18n="navSchemes" class="text-slate-400 dark:text-slate-500 text-[10px] font-medium">Schemes</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1 group" href="#">
+          <!-- Floating Action Button effect for center item -->
+          <div
+            class="absolute -top-6 bg-tertiary rounded-full h-14 w-14 flex items-center justify-center shadow-lg shadow-blue-900/30 border-4 border-white dark:border-gray-900">
+            <span class="material-symbols-outlined text-white text-2xl">qr_code_scanner</span>
+          </div>
+          <div class="h-7 w-7"><!-- Spacer for the floating button --></div>
+          <p data-i18n="navScan" class="text-tertiary dark:text-blue-400 text-[10px] font-medium mt-1">Scan</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1" href="#">
+          <div
+            class="text-slate-400 dark:text-slate-500 flex h-7 items-center justify-center hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+            <span class="material-symbols-outlined">folder_shared</span>
+          </div>
+          <p data-i18n="navDocs" class="text-slate-400 dark:text-slate-500 text-[10px] font-medium">Docs</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1" href="#">
+          <div
+            class="text-slate-400 dark:text-slate-500 flex h-7 items-center justify-center hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+            <span class="material-symbols-outlined">account_circle</span>
+          </div>
+          <p data-i18n="navProfile" class="text-slate-400 dark:text-slate-500 text-[10px] font-medium">Profile</p>
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+      // Set today's date on load
+      (function () {
+        var dateEl = document.getElementById('current-date');
+        if (dateEl) {
+          var d = new Date();
+          dateEl.textContent = d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' });
+        }
+      })();
+
+    // Listen for user profile updates from parent app
+    window.addEventListener('message', function (e) {
+      if (!e.data || e.data.source !== 'bharat-setu-parent') return;
+      if (e.data.action === 'user-update') {
+        var greetEl = document.getElementById('user-greeting');
+        if (greetEl) {
+          var name = (e.data.name || '').split(' ')[0] || 'नागरिक';
+          greetEl.textContent = (e.data.greetingPrefix || 'Namaste') + ', ' + name + '!';
+        }
+        var dpEl = document.getElementById('digipin-display');
+        if (dpEl && e.data.digipin) {
+          dpEl.textContent = e.data.digipin;
+        }
+      }
+      // Apply translations from parent
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        console.log('HOME.HTML RECEIVED TRANSLATIONS:', tr);
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (key && tr[key]) {
+             console.log('Translating', key, 'to', tr[key]);
+             el.textContent = tr[key];
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

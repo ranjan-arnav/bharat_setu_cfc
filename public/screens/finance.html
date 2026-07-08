@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Arthik Salahkar - Finance Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#195de6",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111621",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a2235",
+              "text-light": "#111318",
+              "text-dark": "#f0f2f4",
+              "subtext-light": "#636f88",
+              "subtext-dark": "#94a3b8",
+            },
+            fontFamily: {
+              "display": ["Public Sans", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem", 
+              "lg": "0.5rem", 
+              "xl": "0.75rem", 
+              "2xl": "1rem",
+              "3xl": "1.5rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom scrollbar hide for clean horizontal scrolling */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-text-light dark:text-text-dark font-display flex flex-col items-center">
+<div class="w-full max-w-md bg-background-light dark:bg-background-dark min-h-screen flex flex-col relative shadow-xl overflow-hidden">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-surface-light dark:bg-surface-dark/95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 px-4 pt-12 pb-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight" data-i18n="arthikSalahkar">Arthik Salahkar</h1>
+<span class="text-xs text-subtext-light dark:text-subtext-dark font-medium" data-i18n="financeAssistant">Finance Assistant</span>
+</div>
+</div>
+<button class="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-text-light dark:text-text-dark">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-surface-light dark:border-surface-dark"></span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24 px-4">
+<!-- Welcome Section -->
+<section class="pt-6 pb-4">
+<h2 class="text-2xl font-bold mb-2" data-i18n="financialSafetyGrowth">Financial Safety &amp; Growth</h2>
+<p class="text-subtext-light dark:text-subtext-dark text-sm leading-relaxed" data-i18n="secureYourFinancesCheck">
+                    Secure your finances, check credit health, and access government schemes with ease.
+                </p>
+</section>
+<!-- Featured Tool: Scan for Scams -->
+<section class="mb-6">
+<div class="bg-primary rounded-2xl p-5 text-white relative overflow-hidden shadow-lg shadow-primary/20">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full -ml-8 -mb-8 blur-xl"></div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-yellow-300">shield</span>
+<h3 class="font-bold text-lg" data-i18n="scanForScams">Scan for Scams</h3>
+</div>
+<p class="text-blue-100 text-sm max-w-[200px]" data-i18n="uploadAScreenshotOr">Upload a screenshot or text to check for potential fraud instantly.</p>
+</div>
+<div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined text-2xl">qr_code_scanner</span>
+</div>
+</div>
+<button class="w-full bg-white text-primary font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-50 transition-colors">
+<span data-i18n="scanNow">Scan Now</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Dashboard Grid -->
+<section class="grid grid-cols-2 gap-4 mb-6">
+<!-- Credit Score Card -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-[10px] font-bold px-2 py-1 rounded-full" data-i18n="good">GOOD</span>
+</div>
+<div>
+<p class="text-subtext-light dark:text-subtext-dark text-xs font-medium mb-1" data-i18n="creditScore">Credit Score</p>
+<h4 class="text-2xl font-bold">750</h4>
+<p class="text-[10px] text-subtext-light dark:text-subtext-dark mt-1" data-i18n="updated2DaysAgo">Updated 2 days ago</p>
+</div>
+</div>
+<!-- Udyam Status Card -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<span class="bg-gray-100 dark:bg-gray-800 text-subtext-light dark:text-subtext-dark text-[10px] font-bold px-2 py-1 rounded-full" data-i18n="active">ACTIVE</span>
+</div>
+<div>
+<p class="text-subtext-light dark:text-subtext-dark text-xs font-medium mb-1" data-i18n="udyamStatus">Udyam Status</p>
+<h4 class="text-lg font-bold truncate" data-i18n="verified">Verified</h4>
+<p class="text-[10px] text-subtext-light dark:text-subtext-dark mt-1" data-i18n="regUdyamxx001">Reg: UDYAM-XX-001</p>
+</div>
+</div>
+</section>
+<!-- Quick Actions / Services -->
+<section class="mb-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-lg" data-i18n="quickActions">Quick Actions</h3>
+<button class="text-primary text-sm font-medium hover:underline" data-i18n="viewAll">View All</button>
+</div>
+<div class="space-y-3">
+<!-- Action Item 1 -->
+<button class="w-full bg-surface-light dark:bg-surface-dark p-3 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors text-left group">
+<div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary flex items-center justify-center shrink-0 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 transition-colors">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-semibold text-sm truncate" data-i18n="linkBankAccount">Link Bank Account</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark truncate" data-i18n="connectForBetterInsights">Connect for better insights</p>
+</div>
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark text-xl">chevron_right</span>
+</button>
+<!-- Action Item 2 -->
+<button class="w-full bg-surface-light dark:bg-surface-dark p-3 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors text-left group">
+<div class="w-12 h-12 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/40 transition-colors">
+<span class="material-symbols-outlined">family_star</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-semibold text-sm truncate" data-i18n="governmentSchemes">Government Schemes</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark truncate" data-i18n="findSubsidiesTailoredFor">Find subsidies tailored for you</p>
+</div>
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark text-xl">chevron_right</span>
+</button>
+<!-- Action Item 3 -->
+<button class="w-full bg-surface-light dark:bg-surface-dark p-3 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors text-left group">
+<div class="w-12 h-12 rounded-lg bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 group-hover:bg-rose-100 dark:group-hover:bg-rose-900/40 transition-colors">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-semibold text-sm truncate" data-i18n="reportFraud">Report Fraud</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark truncate" data-i18n="directlyReportToCyber">Directly report to Cyber Crime</p>
+</div>
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark text-xl">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Education Carousel -->
+<section>
+<h3 class="font-bold text-lg mb-4" data-i18n="learnGrow">Learn &amp; Grow</h3>
+<div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 snap-x">
+<!-- Card 1 -->
+<div class="snap-center shrink-0 w-64 bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 group cursor-pointer">
+<div class="h-32 w-full bg-gray-200 relative overflow-hidden">
+<!-- Image representing financial planning -->
+<img alt="Stack of coins with a small plant growing out" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="Financial growth concept with coins and plant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjN--KNVKIvCi2Di8TyLgJ_BdE2aA-x_idZIa6HDLPLh3ffLIvlYh1Az326bfIM9ofc_xFgVzKVxq2vkEF2DjvVFym5TQu8NkC2vXe1Vzf4oFTp4e0YeV16w9v3ahmVOflPhunDjEZNONIu7Ohly5np7XRqGcxvVH5vjjNdXg5tK-cr0dMYLIXIKbfb98UnaMU6qLcrISMRVxDq_f_qeNbV9oSlCAi-AF3wSStokJsgR8EPEMGve22hOTRNAe_PR0EAxAoL_GCQss">
+</div>
+<div class="p-3">
+<span class="text-[10px] font-bold text-primary uppercase tracking-wider mb-1 block" data-i18n="education">Education</span>
+<h4 class="font-semibold text-sm mb-1 leading-snug" data-i18n="basicsOfMutualFunds">Basics of Mutual Funds</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark line-clamp-2" data-i18n="understandingSipsAndHow">Understanding SIPs and how to start investing with small amounts.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="snap-center shrink-0 w-64 bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 group cursor-pointer">
+<div class="h-32 w-full bg-gray-200 relative overflow-hidden">
+<!-- Image representing digital security -->
+<img alt="Digital lock on a laptop screen background" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="Cybersecurity concept with digital lock" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3ek3_m-JWuWX8P96M74rlPt42E8p_M6OwOpFlxlG-ZAhK6CT49IHp2xFlj4NM7w7SUp3Ds6RrCDvJheBWGYa7E6mxi0IypGg4AYUBzO7UH7WKZmrYj3TlTW3mSCNvHsAohTcNXGkN_JpgjSFGQrmRNN-tK1Mbsa1QmiwRvPQLjzXxyPNSXUoEbtvrmD33D-8-qRMIqRfatpj9dLzcavRCrv3AKUs7ntmdNztLHdLKdlBf1rnzrf3eeTkWMBYxjcPqtG3UWvAVQU4">
+</div>
+<div class="p-3">
+<span class="text-[10px] font-bold text-rose-600 uppercase tracking-wider mb-1 block" data-i18n="security">Security</span>
+<h4 class="font-semibold text-sm mb-1 leading-snug" data-i18n="upiFraudPrevention">UPI Fraud Prevention</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark line-clamp-2" data-i18n="howToSpotFake">How to spot fake QR codes and payment requests.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="sticky bottom-0 bg-surface-light dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800 pb-safe pt-2 px-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-end pb-4">
+<a class="flex flex-col items-center gap-1 group w-16" href="#">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors text-[24px]">home</span>
+<span class="text-[10px] font-medium text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors" data-i18n="home">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 group w-16" href="#">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors text-[24px]">grid_view</span>
+<span class="text-[10px] font-medium text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors" data-i18n="services">Services</span>
+</a>
+<!-- Active Tab -->
+<a class="flex flex-col items-center gap-1 w-16 -mt-6" href="#">
+<div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/40 mb-1 transform transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[24px] font-variation-settings-fill">currency_rupee</span>
+</div>
+<span class="text-[10px] font-bold text-text-light dark:text-text-dark" data-i18n="arthik">Arthik</span>
+</a>
+<a class="flex flex-col items-center gap-1 group w-16" href="#">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors text-[24px]">forum</span>
+<span class="text-[10px] font-medium text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors" data-i18n="chat">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 group w-16" href="#">
+<span class="material-symbols-outlined text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors text-[24px]">person</span>
+<span class="text-[10px] font-medium text-subtext-light dark:text-subtext-dark group-hover:text-primary transition-colors" data-i18n="profile">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

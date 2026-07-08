@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>SOS Emergency - Bharat Setu</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f20d0d",
+            "background-light": "#f8f5f5",
+            "background-dark": "#1a0808",
+            "emergency-red": "#8B0000",
+          },
+          fontFamily: {
+            "display": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background: linear-gradient(180deg, #4c0606 0%, #1a0808 100%);
+      min-height: 100vh;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pulse-red {
+      box-shadow: 0 0 0 0 rgba(242, 13, 13, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(242, 13, 13, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 15px rgba(242, 13, 13, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(242, 13, 13, 0);
+      }
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 font-display">
+  <script>
+    // ── Live location injection ───────────────────────────────────────────────
+    // Charset: 23456789CFHJMPQRVWXY  (ISRO DIGIPIN 20-char set)
+    var _DC = '23456789CFHJMPQRVWXY';
+    function _dp(lat, lng) {
+      var la = Math.max(6.5, Math.min(37.6, lat));
+      var lo = Math.max(68.1, Math.min(97.4, lng));
+      var nl = (la - 6.5) / (37.6 - 6.5);
+      var no = (lo - 68.1) / (97.4 - 68.1);
+      var lb = Math.floor(nl * (1 << 20));
+      var ob = Math.floor(no * (1 << 20));
+      var c = [];
+      for (var i = 0; i < 10; i++) {
+        var n = (((lb >> (18 - i * 2)) & 3) << 2) | ((ob >> (18 - i * 2)) & 3);
+        c.push(_DC[n % 20]);
+      }
+      return c.slice(0, 4).join('') + '-' + c.slice(4, 7).join('') + '-' + c.slice(7, 10).join('');
+    }
+    function _injectLocation(lat, lng, acc) {
+      var dp = _dp(lat, lng);
+      var el = document.getElementById('sos-digipin');
+      if (el) el.textContent = dp;
+      var elLat = document.getElementById('sos-lat');
+      if (elLat) elLat.textContent = Math.abs(lat).toFixed(4) + '\u00b0 N';
+      var elLng = document.getElementById('sos-lng');
+      if (elLng) elLng.textContent = Math.abs(lng).toFixed(4) + '\u00b0 E';
+      var elAcc = document.getElementById('sos-accuracy');
+      if (elAcc) elAcc.textContent = 'LIVE ACCURACY: ' + Math.round(acc) + 'm';
+      // Notify parent frame
+      if (window.parent !== window) {
+        window.parent.postMessage({
+          source: 'bharat-setu-iframe',
+          action: 'sos-location',
+          digipin: dp, lat: lat, lng: lng, accuracy: acc
+        }, '*');
+      }
+    }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (p) {
+        _injectLocation(p.coords.latitude, p.coords.longitude, p.coords.accuracy);
+      }, function () { /* keep static fallback */ }, { enableHighAccuracy: true, timeout: 8000 });
+    }
+  </script>
+  <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-32">
+    <!-- Top App Bar -->
+    <div class="flex items-center justify-between p-6 pt-12 sticky top-0 bg-background-dark/80 backdrop-blur-md z-50 border-b border-primary/20">
+      <div class="flex items-center gap-3">
+        <div class="flex size-3 bg-primary rounded-full pulse-red"></div>
+        <h2 class="text-white text-xl font-bold leading-tight tracking-tight uppercase" data-i18n="sosModeActive">🚨 SOS MODE ACTIVE</h2>
+      </div>
+      <div class="flex flex-col items-end">
+        <p class="text-primary font-bold text-sm tracking-widest">00:47</p>
+        <p class="text-slate-400 text-[10px] uppercase font-semibold" data-i18n="recordingAudio">Recording Audio...</p>
+      </div>
+    </div>
+    <div class="px-4 py-4 space-y-4">
+      <!-- Live Location Card -->
+      <div class="glass-card rounded-xl overflow-hidden shadow-2xl">
+        <div class="h-40 w-full bg-slate-800 relative" data-alt="Detailed map view of current user location" data-location="New Delhi, India" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuARkM6EJLY3Ojh4TicpgoIRCEnn_NzA4g3m3w16J6JNNjlf2ZVAUn8DLvri40p2UuyvGDvvhczD-gCFoMMji12wSuO8KWDFoal8f3bB0Ah7x-1xwsMY3_hyc0zIqLy81F3LDKhOlk1fZdu_TxIsrtKJmeB6TTPJcJR_PwDwLfyr3QpCAzJN0KfH8wY-liOJKmgODCvdjnOmI8gffBPZpxLnHDBQXewtEwautz2xJb6parUT3Dtmk4gVKam3W1JZvdcnWqKO2Vi6nX8&quot;);">
+          <div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-sm">location_on</span>
+            <span id="sos-accuracy" class="text-xs font-bold text-white tracking-wide" data-i18n="liveAccuracy4m">LIVE ACCURACY: 4m</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col gap-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold" data-i18n="isroDigipin">ISRO DIGIPIN</p>
+              <p id="sos-digipin" class="text-white text-lg font-mono font-bold" data-i18n="3j7k9m2p4r">3J7K-9M2-P4R</p>
+            </div>
+            <button onclick="window.parent.postMessage({source:'bharat-setu-iframe',action:'open-overlay',overlay:'digipin'},'*')" class="bg-white/10 p-2 rounded-lg hover:bg-white/20 transition-colors">
+              <span class="material-symbols-outlined text-white">gps_fixed</span>
+            </button>
+          </div>
+          <div class="flex gap-4 border-t border-white/10 pt-2">
+            <div>
+              <p class="text-[10px] text-slate-400" data-i18n="latitude">LATITUDE</p>
+              <p id="sos-lat" class="text-sm font-semibold text-white" data-i18n="286139N">28.6139° N</p>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-400" data-i18n="longitude">LONGITUDE</p>
+              <p id="sos-lng" class="text-sm font-semibold text-white" data-i18n="772090E">77.2090° E</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Emergency Actions -->
+      <div class="grid grid-cols-1 gap-3">
+        <a href="tel:100" class="flex items-center justify-between w-full h-16 px-6 bg-primary hover:bg-red-600 transition-colors rounded-xl shadow-lg group no-underline">
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-white text-3xl">local_police</span>
+            <span class="text-white text-xl font-bold" data-i18n="police100">Police (100)</span>
+          </div>
+          <span class="material-symbols-outlined text-white/50 group-hover:text-white">chevron_right</span>
+        </a>
+        <a href="tel:108" class="flex items-center justify-between w-full h-16 px-6 bg-primary hover:bg-red-600 transition-colors rounded-xl shadow-lg group no-underline">
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-white text-3xl">medical_services</span>
+            <span class="text-white text-xl font-bold" data-i18n="ambulance108">Ambulance (108)</span>
+          </div>
+          <span class="material-symbols-outlined text-white/50 group-hover:text-white">chevron_right</span>
+        </a>
+        <button onclick="window.parent.postMessage({source:'bharat-setu-iframe',action:'open-agent-chat',agent:'vidhi_sahayak'},'*')" class="flex items-center justify-between w-full h-16 px-6 bg-white/10 hover:bg-white/20 transition-colors rounded-xl border border-white/20 group">
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-white text-3xl">gavel</span>
+            <div class="text-left">
+              <div class="flex items-center gap-2">
+                <span class="text-white text-lg font-bold" data-i18n="nyayaBandhuLawyer">Nyaya Bandhu Lawyer</span>
+                <div class="size-2 bg-green-500 rounded-full"></div>
+              </div>
+              <p class="text-[10px] text-slate-400 uppercase font-bold" data-i18n="freeLegalAidAvailable">Free Legal Aid Available</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-white/50 group-hover:text-white">video_call</span>
+        </button>
+        <a href="tel:1091" class="flex items-center justify-between w-full h-16 px-6 bg-pink-500/20 hover:bg-pink-500/30 transition-colors rounded-xl border border-pink-500/30 group no-underline">
+          <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-pink-300 text-3xl">woman</span>
+            <div class="text-left">
+              <div class="flex items-center gap-2">
+                <span class="text-white text-lg font-bold" data-i18n="womensHelpline1091">Women's Helpline (1091)</span>
+              </div>
+              <p class="text-[10px] text-slate-400 uppercase font-bold" data-i18n="tapToCall">Tap to call</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-white/50 group-hover:text-white">call</span>
+        </a>
+      </div>
+      <!-- Agent Status Card -->
+      <div class="glass-card rounded-xl p-5 border-l-4 border-l-primary">
+        <div class="flex items-start gap-3 mb-4">
+          <div class="size-10 bg-primary/20 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary">psychology</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-white font-bold text-base leading-tight" data-i18n="vidhiSahayakAiLegal">Vidhi Sahayak (AI Legal Agent)</p>
+            <p class="text-slate-300 text-sm" data-i18n="preparingYourZeroFir">Preparing your Zero FIR draft...</p>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-primary h-full w-[65%]"></div>
+          </div>
+          <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            <span data-i18n="evidenceCollection">Evidence Collection</span>
+            <span class="text-primary" data-i18n="65Complete">65% Complete</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mt-4">
+          <div class="flex flex-col items-center gap-1 bg-white/5 p-2 rounded-lg">
+            <span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+            <span class="text-[9px] text-slate-300" data-i18n="voice">VOICE</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-white/5 p-2 rounded-lg">
+            <span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+            <span class="text-[9px] text-slate-300" data-i18n="gpspin">GPS/PIN</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-white/5 p-2 rounded-lg">
+            <span class="material-symbols-outlined text-primary text-sm animate-pulse">sync</span>
+            <span class="text-[9px] text-slate-300" data-i18n="media">MEDIA</span>
+          </div>
+        </div>
+      </div>
+      <!-- Notifications Panel -->
+      <div class="space-y-3">
+        <h3 class="text-slate-400 text-xs font-bold uppercase tracking-[0.2em] px-1" data-i18n="agencyCoordination">Agency Coordination</h3>
+        <div class="glass-card rounded-xl divide-y divide-white/5">
+          <div class="flex items-center justify-between p-4">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-green-400">group</span>
+              <span id="sos-emergency-contact" class="text-sm font-semibold" data-i18n="family">परिवार संपर्क (Family)</span>
+            </div>
+            <span class="text-[10px] font-bold text-green-400 uppercase" data-i18n="notified">Notified</span>
+          </div>
+          <div class="flex items-center justify-between p-4">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-green-400">shield</span>
+              <span class="text-sm font-semibold" data-i18n="localPoliceStation">Local Police Station</span>
+            </div>
+            <span class="text-[10px] font-bold text-green-400 uppercase" data-i18n="alertSent">Alert Sent</span>
+          </div>
+          <div class="flex items-center justify-between p-4">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">support_agent</span>
+              <span class="text-sm font-semibold" data-i18n="womensHelpline">Women's Helpline</span>
+            </div>
+            <span class="text-[10px] font-bold text-primary uppercase" data-i18n="connected">Connected</span>
+          </div>
+          <div class="flex items-center justify-between p-4">
+            <div class="flex items-center gap-3 text-slate-500">
+              <span class="material-symbols-outlined">account_balance</span>
+              <span class="text-sm font-semibold" data-i18n="dmOffice">DM Office</span>
+            </div>
+            <span class="text-[10px] font-bold text-slate-500 uppercase" data-i18n="sending">Sending...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Actions -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-background-dark/95 backdrop-blur-xl border-t border-white/10 flex gap-4 z-[100]">
+      <button onclick="window.parent.postMessage({source:'bharat-setu-iframe',action:'navigate',screen:'home'},'*')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl transition-all uppercase tracking-widest text-sm" data-i18n="cancelSos">
+        Cancel SOS
+      </button>
+      <button onclick="window.parent.postMessage({source:'bharat-setu-iframe',action:'navigate',screen:'home'},'*')" class="flex-[2] bg-green-600 hover:bg-green-500 text-white font-black py-4 rounded-xl transition-all uppercase tracking-widest text-base shadow-[0_0_20px_rgba(22,163,74,0.4)]" data-i18n="imSafe">
+        I'm Safe
+      </button>
+    </div>
+  </div>
+  <script>
+    (function () {
+      function syncTheme() {
+        try {
+          var isDark = window.parent.document.documentElement.classList.contains('dark');
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch (e) { }
+      }
+      syncTheme();
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.action === 'sync-theme') {
+          document.documentElement.classList.toggle('dark', e.data.theme === 'dark');
+        }
+      });
+    })();
+  </script>
+
+
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

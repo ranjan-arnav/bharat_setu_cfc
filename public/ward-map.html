@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ward Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #0d1b2e; font-family: 'Segoe UI', sans-serif; }
+    #map { width: 100%; height: 100%; }
+
+    /* Custom marker styles */
+    .grievance-marker {
+      width: 16px; height: 16px;
+      background: #EF4444;
+      border: 2.5px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(239,68,68,0.25), 0 2px 6px rgba(0,0,0,0.5);
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(239,68,68,0.25), 0 2px 6px rgba(0,0,0,0.5); }
+      50%       { box-shadow: 0 0 0 8px rgba(239,68,68,0.10), 0 2px 6px rgba(0,0,0,0.5); }
+    }
+    .leaflet-popup-content-wrapper {
+      background: #0f1f3a !important;
+      border: 1px solid rgba(255,255,255,0.12) !important;
+      border-radius: 12px !important;
+      color: #fff !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+    }
+    .leaflet-popup-tip { background: #0f1f3a !important; }
+    .leaflet-popup-content { margin: 10px 14px !important; }
+    .pop-title { font-size: 11px; font-weight: 800; color: #ef4444; margin-bottom: 2px; }
+    .pop-body  { font-size: 10px; color: rgba(255,255,255,0.65); }
+    .leaflet-control-zoom a {
+      background: #0f1f3a !important;
+      border-color: rgba(255,255,255,0.15) !important;
+      color: rgba(255,255,255,0.7) !important;
+    }
+    .leaflet-control-attribution {
+      background: rgba(10,22,40,0.85) !important;
+      color: rgba(255,255,255,0.35) !important;
+      font-size: 8px !important;
+    }
+    .leaflet-control-attribution a { color: rgba(255,255,255,0.4) !important; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Default: Lucknow city center
+  const DEFAULT_LAT  = 26.8467;
+  const DEFAULT_LNG  = 80.9462;
+  const DEFAULT_WARD = 1;
+  const DEFAULT_NAME = 'Lucknow Ward';
+  const DEFAULT_COLOR= '#EF4444'; // red = high severity, amber = medium, green = low
+
+  // Ward center offsets from Lucknow center (simulate 24 wards spread across city)
+  const WARD_OFFSETS = [
+    [0.012,  0.008], [-0.018, 0.022], [0.030, -0.015], [-0.005, -0.030],
+    [0.025,  0.040], [-0.040, 0.010], [0.010,  0.025], [-0.025,-0.020],
+    [0.035, -0.008], [0.000,  0.035], [-0.015, 0.050], [0.040,  0.015],
+    [-0.030,-0.040], [0.020,  0.060], [0.055, -0.005], [-0.050,-0.010],
+    [0.015, -0.045], [-0.010, 0.070], [0.045,  0.030], [-0.035, 0.040],
+    [0.060,  0.060], [-0.020,-0.060], [0.000, -0.020], [-0.045, 0.060],
+  ];
+
+  const ISSUE_TYPES = ['Water Supply','Road Damage','Drainage','Power Outage','Sanitation','Streetlight','Health Issue'];
+
+  function seededRand(seed) {
+    let s = seed;
+    return function() { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; };
+  }
+
+  function init(wardIdx, wardName, wardColor, grievanceCount, theme = 'light') {
+    const off = WARD_OFFSETS[wardIdx] || [0, 0];
+    const cLat = DEFAULT_LAT + off[0];
+    const cLng = DEFAULT_LNG + off[1];
+
+    const map = L.map('map', {
+      center: [cLat, cLng],
+      zoom: 15,
+      zoomControl: true,
+      attributionControl: true,
+    });
+
+    // Theme-adaptive vibrant OpenStreetMap tiles (matching GovAnalytics map)
+    const tileBasemap = theme === 'dark' ? 'dark_all' : 'voyager';
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/${tileBasemap}/{z}/{x}/{y}{r}.png`, {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Ward boundary polygon (approx square ~400m)
+    const d = 0.003;
+    const bounds = [
+      [cLat - d, cLng - d],
+      [cLat - d, cLng + d],
+      [cLat + d, cLng + d],
+      [cLat + d, cLng - d],
+    ];
+    L.polygon(bounds, {
+      color: wardColor,
+      weight: 2.5,
+      dashArray: '6 4',
+      fillColor: wardColor,
+      fillOpacity: 0.06,
+    })
+    .bindTooltip(`<b style="color:${wardColor}">Ward ${wardIdx+1}</b><br><span style="color:rgba(255,255,255,0.6);font-size:10px">${wardName}</span>`, {
+      permanent: true, direction: 'top', className: 'ward-label',
+      offset: [0, -10]
+    })
+    .addTo(map);
+
+    // Grievance dots
+    const rng = seededRand(wardIdx * 137 + 42);
+    const count = Math.min(grievanceCount, 20);
+    for (let i = 0; i < count; i++) {
+      const lat = cLat + (rng() - 0.5) * d * 1.5;
+      const lng = cLng + (rng() - 0.5) * d * 1.5;
+      const issue = ISSUE_TYPES[Math.floor(rng() * ISSUE_TYPES.length)];
+      const daysAgo = Math.ceil(rng() * 14);
+
+      const icon = L.divIcon({ className: '', html: '<div class="grievance-marker"></div>', iconSize: [16, 16], iconAnchor: [8, 8] });
+      L.marker([lat, lng], { icon })
+        .bindPopup(`
+          <div class="pop-title">⚠ ${issue}</div>
+          <div class="pop-body">Reported ${daysAgo} day${daysAgo>1?'s':''} ago · Ward ${wardIdx+1}<br>${wardName}</div>
+        `)
+        .addTo(map);
+    }
+
+    map.fitBounds(bounds, { padding: [30, 30] });
+  }
+
+  // Listen for config from parent
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'init-ward-map') {
+      const { wardIdx, wardName, wardColor, grievanceCount, theme } = e.data;
+      init(wardIdx, wardName, wardColor, grievanceCount, theme);
+    }
+  });
+
+  // Also support URL params for direct load
+  const params = new URLSearchParams(window.location.search);
+  const wi = parseInt(params.get('ward') || '0');
+  const wn = decodeURIComponent(params.get('name') || 'Lucknow Ward');
+  const wc = params.get('color') || '#EF4444';
+  const wg = parseInt(params.get('count') || '10');
+  const th = params.get('theme') || 'light';
+  init(wi, wn, wc, wg, th);
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Swasthya Sahayak - Health Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#195de6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "text-main": "#0f172a", // slate-900
+                        "text-muted": "#64748b", // slate-500
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        "2xl": "1rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col antialiased">
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-text-main dark:text-white leading-tight" data-i18n="swasthyaSahayak">Swasthya Sahayak</h1>
+<p class="text-xs text-text-muted dark:text-slate-400 font-medium" data-i18n="bharatsetuHealth">Bharat-Setu Health</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-text-main dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Welcome Section -->
+<section class="px-5 pt-6 pb-2">
+<h2 id="user-greeting" class="text-2xl font-bold text-text-main dark:text-white mb-1" data-i18n="namaste">Namaste, नागरिक!</h2>
+<p class="text-text-muted dark:text-slate-400 text-sm" data-i18n="hereIsYourHealth">Here is your health dashboard for today.</p>
+</section>
+<!-- ABHA ID Card -->
+<section class="p-5">
+<div class="bg-gradient-to-br from-primary to-blue-600 rounded-2xl p-5 shadow-lg shadow-blue-500/20 text-white relative overflow-hidden">
+<!-- Decorative circles -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-xl"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-10 -mb-10 blur-xl"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-medium uppercase tracking-wider opacity-80" data-i18n="abhaNumber">ABHA Number</span>
+<div class="text-xl font-mono font-bold tracking-widest">12-3456-7890-1234</div>
+</div>
+<img alt="National Emblem" class="h-8 opacity-90 invert grayscale brightness-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB47h1-QjJo2ALiYxs61mg2D8pBQ16vj045t22akxuxwGf0piH2o1PIuGp3vxyRWZKU3kdNzClpv4N_XP5uc63sgftTxsA_MhQPao_M16vUyvCAz_UJUTXhnv0cB-zI0cv5cq01r1rKwMamfR9AiqyOhTkCVuAJ9NGbH5qbjNgtFchG3DdPug1qkj0AZZhFTXxmK2XAAOxFM8lzlv0mYc4bcLdsashFRCLHCjMFCM4Da_t_rZfav-bw3WqOO76hEhz6HFesMPrrtK0">
+</div>
+<div class="flex items-end justify-between">
+<div>
+<p id="health-abha-name" class="text-sm font-medium opacity-90">नागरिक</p>
+<p class="text-xs opacity-70" data-i18n="dob12051962Male">DOB: 12/05/1962 • Male</p>
+</div>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white text-xs font-bold py-2 px-3 rounded-lg flex items-center gap-1 transition-colors">
+<span data-i18n="viewQr">View QR</span>
+<span class="material-symbols-outlined text-[16px]">qr_code_2</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions Grid -->
+<section class="px-5 pb-6">
+<div class="flex items-center justify-between mb-3">
+    <h3 class="text-base font-bold text-text-main dark:text-white flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-[20px]">grid_view</span><span data-i18n="quickActions">Quick Actions</span></h3>
+    <button onclick="window.parent.postMessage({source:'bharat-setu-iframe',action:'open-overlay',overlay:'emergency-contacts'},'*')" class="text-xs font-bold text-red-500 flex items-center gap-1 bg-red-100 dark:bg-red-900/30 px-2 py-1 rounded-md hover:bg-red-200 transition-colors">
+        <span class="material-symbols-outlined text-[14px]">group</span><span data-i18n="sosContacts">SOS Contacts</span></button>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Vaccination Card -->
+<div class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">vaccines</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white leading-tight" data-i18n="vaccinations_health">Vaccinations</h4>
+<p class="text-xs text-text-muted dark:text-slate-400 mt-1" data-i18n="uwinRecords">U-WIN Records</p>
+</div>
+</div>
+<!-- Book Appointment -->
+<div class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">calendar_add_on</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white leading-tight" data-i18n="bookVisit">Book Visit</h4>
+<p class="text-xs text-text-muted dark:text-slate-400 mt-1" data-i18n="findDoctors">Find Doctors</p>
+</div>
+</div>
+<!-- Medicine Reminders -->
+<div class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">medication</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white leading-tight" data-i18n="medicines">Medicines</h4>
+<p class="text-xs text-text-muted dark:text-slate-400 mt-1" data-i18n="setReminders">Set Reminders</p>
+</div>
+</div>
+<!-- Lab Reports -->
+<div class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">lab_profile</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main dark:text-white leading-tight" data-i18n="labReports">Lab Reports</h4>
+<p class="text-xs text-text-muted dark:text-slate-400 mt-1" data-i18n="viewHistory">View History</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Emergency Action -->
+<section class="px-5 pb-6">
+<button class="w-full bg-red-50 dark:bg-red-900/20 border-2 border-red-100 dark:border-red-900/50 rounded-2xl p-4 flex items-center justify-between group active:scale-[0.98] transition-all shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/30 animate-pulse">
+<span class="material-symbols-outlined text-[32px] fill">emergency_home</span>
+</div>
+<div class="text-left">
+<h3 class="text-lg font-bold text-red-700 dark:text-red-400" data-i18n="emergencyHelp">Emergency Help</h3>
+<p class="text-sm text-red-600/80 dark:text-red-400/70" data-i18n="callAmbulanceOrSos">Call Ambulance or SOS</p>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-red-200 dark:bg-red-800/40 flex items-center justify-center text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">call</span>
+</div>
+</button>
+</section>
+<!-- Upcoming Appointments -->
+<section class="px-5 pb-6">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-base font-bold text-text-main dark:text-white" data-i18n="upcoming">Upcoming</h3>
+<a class="text-sm font-medium text-primary" href="#" data-i18n="seeAll">See All</a>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-4 shadow-sm border-l-4 border-primary flex gap-4 items-center">
+<div class="bg-slate-100 dark:bg-slate-800 rounded-lg w-14 h-14 flex flex-col items-center justify-center text-center shrink-0">
+<span class="text-xs font-bold text-primary uppercase" data-i18n="oct">Oct</span>
+<span class="text-xl font-bold text-text-main dark:text-white">24</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-text-main dark:text-white truncate" data-i18n="drAnjaliGupta">Dr. Anjali Gupta</h4>
+<p class="text-xs text-text-muted dark:text-slate-400 truncate" data-i18n="cardiologistCityHospital">Cardiologist • City Hospital</p>
+<div class="flex items-center gap-1 mt-1.5">
+<span class="material-symbols-outlined text-[14px] text-text-muted dark:text-slate-500">schedule</span>
+<span class="text-xs text-text-muted dark:text-slate-400" data-i18n="1030Am">10:30 AM</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="h-6"></div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface-light dark:bg-surface-dark border-t border-slate-200 dark:border-slate-800 pb-safe pt-2 px-4 flex justify-between items-end z-50">
+<a class="flex flex-1 flex-col items-center gap-1 pb-3 text-text-muted dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">home</span>
+<span class="text-[10px] font-medium" data-i18n="home">Home</span>
+</a>
+<a class="flex flex-1 flex-col items-center gap-1 pb-3 text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] fill group-hover:-translate-y-0.5 transition-transform">medical_services</span>
+<span class="text-[10px] font-bold" data-i18n="services">Services</span>
+</a>
+<div class="flex flex-1 flex-col items-center justify-end -mt-8">
+<button class="w-14 h-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 flex items-center justify-center mb-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[28px]">mic</span>
+</button>
+<span class="text-[10px] font-medium text-text-muted dark:text-slate-400 mb-3" data-i18n="speak">Speak</span>
+</div>
+<a class="flex flex-1 flex-col items-center gap-1 pb-3 text-text-muted dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">description</span>
+<span class="text-[10px] font-medium" data-i18n="records">Records</span>
+</a>
+<a class="flex flex-1 flex-col items-center gap-1 pb-3 text-text-muted dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">person</span>
+<span class="text-[10px] font-medium" data-i18n="profile">Profile</span>
+</a>
+</nav>
+<style>
+        /* Safe area spacing for modern phones */
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

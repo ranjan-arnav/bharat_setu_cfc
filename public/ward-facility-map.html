@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ward Facilities Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', system-ui, sans-serif; }
+    #map { width: 100%; height: 100%; }
+    
+    /* Compact, slightly transparent legend */
+    .legend {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    }
+    
+    .poi-icon {
+      background: white;
+      border-radius: 50%;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      width: 20px;
+      height: 20px;
+    }
+    .poi-icon span { font-size: 13px; margin: 0; padding: 0; display: block; }
+    
+    .school { border-color: #3B82F6; color: #3B82F6; }
+    .hospital { border-color: #EF4444; color: #EF4444; }
+    .fire { border-color: #F97316; color: #F97316; }
+    .police { border-color: #1E3A8A; color: #1E3A8A; }
+    
+    /* Dark mode styling for legend */
+    @media (prefers-color-scheme: dark) {
+      .legend { background: rgba(15, 23, 42, 0.85); color: #cbd5e1; border: 1px solid rgba(51, 65, 85, 0.5); }
+      .poi-icon { background: #1e293b; }
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const wardName = params.get('ward') || 'Ward';
+    
+    // Hash ward name to get an index for offset
+    let hash = 0;
+    for (let i = 0; i < wardName.length; i++) { hash = wardName.charCodeAt(i) + ((hash << 5) - hash); }
+    if(hash < 0) hash = -hash;
+    const wardIdx = hash % 24;
+
+    const CENTER_LAT = 26.8467;
+    const CENTER_LNG = 80.9462;
+    
+    const OFFSETS = [
+      [0.01, 0.01], [-0.02, 0.02], [0.03, -0.01], [-0.01, -0.03], 
+      [0.02, 0.04], [-0.04, 0.01], [0.01, 0.02], [-0.02, -0.02],
+      [0.03, 0.03], [-0.03, -0.01], [0.00, 0.05], [0.04, 0.00],
+      [-0.01, 0.04], [0.02, -0.02], [0.01, -0.04], [-0.03, 0.04],
+      [0.05, 0.02], [-0.05, -0.02], [0.02, 0.01], [-0.01, -0.01],
+      [0.04, 0.04], [-0.04, -0.04], [0.03, -0.03], [-0.03, 0.03]
+    ];
+    const off = OFFSETS[wardIdx];
+    
+    const lat = CENTER_LAT + off[0];
+    const lng = CENTER_LNG + off[1];
+
+    const map = L.map('map');
+    
+    // Dark/Light detection for base map
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const tileTheme = prefersDark ? 'dark_all' : 'voyager';
+    
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/${tileTheme}/{z}/{x}/{y}{r}.png`, {
+      maxZoom: 19,
+      attribution: '© OSM'
+    }).addTo(map);
+
+    let seed = hash;
+    function seededRand() {
+      seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+      return (seed >>> 0) / 0xffffffff;
+    }
+
+    const d = 0.0045; // radius spread for facilities within ward
+
+    // Draw the Ward Boundary
+    const boundsArr = [
+      [lat - d*1.2, lng - d*1.2],
+      [lat - d*1.2, lng + d*1.2],
+      [lat + d*1.2, lng + d*1.2],
+      [lat + d*1.2, lng - d*1.2]
+    ];
+    
+    const wardPoly = L.polygon(boundsArr, {
+      color: '#3B82F6',
+      weight: 2,
+      dashArray: '5 5',
+      fillColor: '#3B82F6',
+      fillOpacity: 0.08
+    }).addTo(map);
+    
+    // Auto-fit map to exactly show the boundary with padding so legend doesn't overlap
+    map.fitBounds(wardPoly.getBounds(), { paddingBottomRight: [100, 40], paddingTopLeft: [20, 20] });
+
+    // Define categories
+    const FACILITIES = [
+        { type: 'school', title: 'Public School', icon: 'school', count: Math.ceil(seededRand()*3)+1, color: '#3B82F6' },
+        { type: 'hospital', title: 'Govt Hospital', icon: 'local_hospital', count: Math.ceil(seededRand()*2), color: '#EF4444' },
+        { type: 'fire', title: 'Fire Station', icon: 'local_fire_department', count: 1, color: '#F97316' },
+        { type: 'police', title: 'Police Station', icon: 'local_police', count: 1, color: '#1E3A8A' }
+    ];
+
+    FACILITIES.forEach(fac => {
+      for(let i=0; i<fac.count; i++) {
+        let pLat = lat + (seededRand() - 0.5) * d * 1.8;
+        let pLng = lng + (seededRand() - 0.5) * d * 1.8;
+        
+        const htmlIcon = `<div class="poi-icon ${fac.type}"><span class="material-icons-outlined">${fac.icon}</span></div>`;
+        const customIcon = L.divIcon({ className: '', html: htmlIcon, iconSize: [20,20], iconAnchor: [10,10] });
+        
+        L.marker([pLat, pLng], {icon: customIcon})
+         .bindPopup(`<strong style="font-size:12px;color:${fac.color}">${fac.title}</strong><br><span style="font-size:10px">${wardName}</span>`)
+         .addTo(map);
+      }
+    });
+
+    // Custom Map Legend positioned at bottom right
+    const legend = L.control({position: 'bottomright'});
+    legend.onAdd = function (map) {
+      const div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = '<strong style="display:block;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:#64748b;">Legend</strong>';
+      FACILITIES.forEach(fac => {
+        div.innerHTML += `<div style="display:flex;align-items:center;margin-bottom:4px;font-size:10px;font-weight:600;">
+          <div style="background:${fac.color};width:10px;height:10px;border-radius:50%;margin-right:6px;box-shadow:0 1px 2px rgba(0,0,0,0.3)"></div>
+          ${fac.title}
+        </div>`;
+      });
+      return div;
+    };
+    legend.addTo(map);
+
+  </script>
+</body>
+</html>

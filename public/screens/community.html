@@ -1,0 +1,548 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Community Impact Dashboard - Bharat-Setu</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f29e0d",
+            "background-light": "#f8f7f5",
+            "background-dark": "#0a1628",
+            "accent-green": "#22c55e",
+            "surface": "#16253b",
+          },
+          fontFamily: {
+            "display": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .india-map-gradient {
+      background: radial-gradient(circle at center, #22c55e 0%, #f29e0d 50%, #ef4444 100%);
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    .tab-btn { color: #94a3b8; }
+    .tab-btn.active { color: #f29e0d; }
+    .tab-btn.active .tab-indicator { background: #f29e0d !important; }
+    select option { background: #16253b; color: #fff; }
+    .toast { opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-50 flex items-center justify-between px-4 py-4 bg-background-dark/80 backdrop-blur-md border-b border-white/10">
+    <div class="flex items-center gap-3">
+      <button class="p-2 hover:bg-white/5 rounded-full transition-colors" onclick="window.parent.postMessage({action:'navigate',screen:'home'},'*')">
+        <span class="material-symbols-outlined text-slate-100">arrow_back</span>
+      </button>
+      <h1 class="text-lg font-bold tracking-tight text-slate-100 flex items-center gap-2">
+        <span class="text-xl" id="header-icon">📊</span> <span id="header-title" data-i18n="impactDashboard">Impact Dashboard</span>
+      </h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="p-2 hover:bg-white/5 rounded-full transition-colors" id="action-btn-1">
+        <span class="material-symbols-outlined text-slate-100">filter_list</span>
+      </button>
+      <button class="p-2 hover:bg-white/5 rounded-full transition-colors" id="action-btn-2">
+        <span class="material-symbols-outlined text-slate-100">share</span>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Header Divider (Replaces Tab Switcher) -->
+  <div class="sticky top-[72px] z-40 bg-background-dark/90 backdrop-blur-md border-b border-white/10 h-4"></div>
+
+  <main class="max-w-md mx-auto px-4 pt-6 space-y-6">
+    <!-- Impact Tab Content -->
+    <div id="impact-content" class="tab-content space-y-6">
+    <!-- Hero Metric Banner -->
+    <section class="glass-card rounded-xl p-6 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full -mr-16 -mt-16"></div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-2" data-i18n="totalOutreach">Total Outreach</p>
+      <h2 class="text-5xl font-extrabold text-primary mb-2">12,47,832</h2>
+      <p class="text-slate-300 text-base leading-relaxed"><span data-i18n="citizensAccessTheirRights">citizens access their rights across</span><span class="text-white font-bold" data-i18n="847Districts">847 districts</span>
+      </p>
+    </section>
+    <!-- Live Impact Tiles (2x2 Grid) -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-bold text-white" data-i18n="liveImpactTiles">Live Impact Tiles</h3>
+        <span class="text-xs bg-accent-green/20 text-accent-green px-2 py-1 rounded-full font-medium" data-i18n="liveUpdates">Live
+          Updates</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Health -->
+        <div class="glass-card p-4 rounded-xl flex flex-col gap-3">
+          <div class="flex justify-between items-start">
+            <div class="p-2 bg-blue-500/20 rounded-lg">
+              <span class="material-symbols-outlined text-blue-400">vaccines</span>
+            </div>
+            <span class="text-accent-green text-xs font-bold flex items-center">
+              <span class="material-symbols-outlined text-sm">trending_up</span> 5%
+            </span>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-400" data-i18n="health">Health</p>
+            <p class="text-lg font-bold text-white" data-i18n="32l">3.2L</p>
+            <p class="text-[10px] text-slate-500" data-i18n="vaccinations">vaccinations</p>
+          </div>
+        </div>
+        <!-- Welfare -->
+        <div class="glass-card p-4 rounded-xl flex flex-col gap-3">
+          <div class="flex justify-between items-start">
+            <div class="p-2 bg-primary/20 rounded-lg">
+              <span class="material-symbols-outlined text-primary">payments</span>
+            </div>
+            <span class="text-accent-green text-xs font-bold flex items-center">
+              <span class="material-symbols-outlined text-sm">trending_up</span> 12%
+            </span>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-400" data-i18n="welfare">Welfare</p>
+            <p class="text-lg font-bold text-white" data-i18n="847Cr">₹847 Cr</p>
+            <p class="text-[10px] text-slate-500" data-i18n="benefitsDistributed">benefits distributed</p>
+          </div>
+        </div>
+        <!-- Legal -->
+        <div class="glass-card p-4 rounded-xl flex flex-col gap-3">
+          <div class="flex justify-between items-start">
+            <div class="p-2 bg-purple-500/20 rounded-lg">
+              <span class="material-symbols-outlined text-purple-400">gavel</span>
+            </div>
+            <span class="text-accent-green text-xs font-bold flex items-center">
+              <span class="material-symbols-outlined text-sm">trending_up</span> 3%
+            </span>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-400" data-i18n="legal">Legal</p>
+            <p class="text-lg font-bold text-white">45,000</p>
+            <p class="text-[10px] text-slate-500" data-i18n="zeroFirsFiled">Zero FIRs filed</p>
+          </div>
+        </div>
+        <!-- Civic -->
+        <div class="glass-card p-4 rounded-xl flex flex-col gap-3">
+          <div class="flex justify-between items-start">
+            <div class="p-2 bg-orange-500/20 rounded-lg">
+              <span class="material-symbols-outlined text-orange-400">campaign</span>
+            </div>
+            <span class="text-accent-green text-xs font-bold flex items-center">
+              <span class="material-symbols-outlined text-sm">trending_up</span> 8%
+            </span>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-400" data-i18n="civic">Civic</p>
+            <p class="text-lg font-bold text-white" data-i18n="18l">1.8L</p>
+            <p class="text-[10px] text-slate-500" data-i18n="grievancesSolved">grievances solved</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Aspirational Districts Heatmap -->
+    <section class="glass-card rounded-xl p-5">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h3 class="text-base font-bold text-white" data-i18n="schemeSaturationIndex">Scheme Saturation Index</h3>
+          <p class="text-xs text-slate-400" data-i18n="112AspirationalDistrictsNiti">112 Aspirational Districts (NITI Aayog)</p>
+        </div>
+        <div class="flex gap-1">
+          <div class="w-3 h-3 bg-red-500 rounded-sm"></div>
+          <div class="w-3 h-3 bg-primary rounded-sm"></div>
+          <div class="w-3 h-3 bg-accent-green rounded-sm"></div>
+        </div>
+      </div>
+      <div class="relative w-full aspect-[4/5] bg-surface rounded-lg flex items-center justify-center overflow-hidden border border-white/5">
+        <div class="absolute inset-0 opacity-40 india-map-gradient blur-2xl"></div>
+        <!-- Abstract stylized India map representation -->
+        <div class="relative w-48 h-64 opacity-80" data-location="India" style="">
+          <img alt="Abstract India map showing district heatmap" class="w-full h-full object-contain mix-blend-screen" data-alt="Abstract geographical visualization of India districts heatmap" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9xEx6hNi-yvk1WLKkB36pbSy4VUa_xFB-ff1D_E5rI_cnO7waFHuoS6wND1j577vVn36h8Rt_pD0Ca-vb6QugGJ_J0Gy8DD9Lsn24_lfKs1SGnbQQNyjjFlQyuS5Meg0RY5YHLhRfOR9uDAA6oROqzLR03ohIClL7OFocOhpIloTjLBqI6cCrSnAxA_dydwXp40MMnCQjJMdE1Ppduxzt7Hvpk3i2bOCw0JZam1cEs1C7QAztw_7iUTybNi4xvH_wnNigLQigaho">
+        </div>
+        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur px-3 py-2 rounded-lg border border-white/10">
+          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter" data-i18n="avgSaturation">Avg Saturation</p>
+          <p class="text-lg font-bold text-white">58.4%</p>
+        </div>
+      </div>
+    </section>
+    <!-- Personalized District Card -->
+    <section class="bg-primary/10 border border-primary/30 rounded-xl p-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="p-2 bg-primary rounded-lg">
+          <span class="material-symbols-outlined text-black font-bold">location_on</span>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white" id="community-district-title" data-i18n="dumkaJharkhand">Dumka, Jharkhand</h3>
+          <p class="text-xs text-primary/80" data-i18n="yourCurrentDistrict">Your Current District</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="bg-white/5 p-3 rounded-lg">
+          <p class="text-[10px] text-slate-400 uppercase font-bold" data-i18n="saturation">Saturation</p>
+          <p class="text-xl font-bold text-white">67%</p>
+        </div>
+        <div class="bg-white/5 p-3 rounded-lg">
+          <p class="text-[10px] text-slate-400 uppercase font-bold" data-i18n="activeCitizens">Active Citizens</p>
+          <p class="text-xl font-bold text-white">12,450</p>
+        </div>
+      </div>
+      <div class="pt-4 border-t border-white/10">
+        <div class="flex justify-between items-center">
+          <span class="text-sm font-medium text-slate-300" data-i18n="yourContributions">Your contributions</span>
+          <span class="text-sm font-bold text-primary" id="community-contributions" data-i18n="7Grievances">7 Grievances</span>
+        </div>
+      </div>
+    </section>
+    <!-- Transparency Section -->
+    <section class="pb-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-slate-500 text-sm">verified_user</span>
+        <p class="text-[11px] text-slate-400 font-medium" data-i18n="allDataSourcedFrom">All data sourced from official government APIs via MCP</p>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <div class="px-2 py-1 bg-white/5 rounded border border-white/10 flex items-center gap-1">
+          <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+          <span class="text-[10px] text-slate-300 font-bold" data-i18n="nso">NSO</span>
+        </div>
+        <div class="px-2 py-1 bg-white/5 rounded border border-white/10 flex items-center gap-1">
+          <div class="w-2 h-2 rounded-full bg-accent-green"></div>
+          <span class="text-[10px] text-slate-300 font-bold" data-i18n="abdm">ABDM</span>
+        </div>
+        <div class="px-2 py-1 bg-white/5 rounded border border-white/10 flex items-center gap-1">
+          <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+          <span class="text-[10px] text-slate-300 font-bold" data-i18n="ecourts">eCourts</span>
+        </div>
+      </div>
+      <p class="text-[10px] text-slate-500 italic" data-i18n="lastUpdated2Minutes">Last updated: 2 minutes ago</p>
+    </section>
+    <!-- Community News Placeholder -->
+    <section class="glass-card rounded-xl p-5 mb-8 border-l-4 border-l-primary">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="p-2 bg-primary/20 rounded-full">
+          <span class="material-symbols-outlined text-primary text-xl">newspaper</span>
+        </div>
+        <h3 class="text-lg font-bold text-white" data-i18n="communityLocalNews">Community Local News</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="p-4 bg-white/5 rounded-lg border border-white/10 animate-pulse">
+          <div class="h-4 bg-slate-700/50 rounded w-3/4 mb-2"></div>
+          <div class="h-3 bg-slate-700/30 rounded w-full mb-1"></div>
+          <div class="h-3 bg-slate-700/30 rounded w-5/6"></div>
+        </div>
+        <div class="p-4 bg-white/5 rounded-lg border border-white/10 flex items-center gap-4">
+           <div class="flex-1">
+             <h4 class="text-sm font-semibold text-slate-200 mb-1" data-i18n="upcomingFeature">Upcoming Feature</h4>
+             <p class="text-[11px] text-slate-400" data-i18n="hyperlocalizedNewsIntegrationIs">Hyper-localized news integration is coming in V3.</p>
+           </div>
+           <span class="material-symbols-outlined text-slate-500">lock_clock</span>
+        </div>
+      </div>
+    </section>
+  </div></main>
+  <div id="toast" class="toast fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-accent-green text-white text-sm font-semibold px-5 py-3 rounded-full flex items-center gap-2 shadow-lg">
+    <span class="material-symbols-outlined text-base">check_circle</span>
+    <span id="toast-msg" data-i18n="saved">Saved!</span>
+  </div>
+
+  <script>
+    // ── Translations ─────────────────────────────────────────────────────────
+    var T = {
+      hi: {
+        tabImpact: 'प्रभाव',
+        headerImpact: 'प्रभाव डैशबोर्ड',
+        labelKarma: 'कर्मा स्कोर', labelContributions: 'योगदान',
+        formTitle: 'प्रोफाइल संपादित करें', btnSave: 'बदलाव सहेजें',
+        labelName: 'पूरा नाम', labelDigipin: 'DIGIPIN (ISRO स्थान कोड)',
+        helpDigipin: '6 अंकों का पिन कोड',
+        labelLanguage: 'पसंदीदा भाषा', labelState: 'राज्य', labelOccupation: 'व्यवसाय', labelIncome: 'वार्षिक आय (₹)',
+        helpIncome: 'योजना पात्रता मिलान के लिए उपयोग होता है',
+        optSelect: 'व्यवसाय चुनें', optFarmer: 'किसान', optStudent: 'छात्र', optGovt: 'सरकारी कर्मचारी',
+        optPrivate: 'निजी क्षेत्र', optBusiness: 'व्यवसायी', optHomemaker: 'गृहिणी', optRetired: 'सेवानिवृत्त', optOther: 'अन्य',
+        privacyNote: 'आपका डेटा एन्क्रिप्टेड है और स्थानीय रूप से संग्रहीत है। हम आपकी जानकारी कभी साझा नहीं करते।',
+        dataSrc: 'प्रोफाइल डिवाइस स्टोरेज के साथ समन्वयित',
+        toastSaved: 'प्रोफाइल सहेजी गई!',
+        namePlaceholder: 'अपना पूरा नाम दर्ज करें',
+        statePlaceholder: 'जैसे, महाराष्ट्र',
+      },
+      en: {
+        tabImpact: 'Impact',
+        headerImpact: 'Impact Dashboard',
+        labelKarma: 'Karma Score', labelContributions: 'Contributions',
+        formTitle: 'Community Insights', btnSave: 'Refresh Data',
+        labelName: 'Full Name', labelDigipin: 'DIGIPIN (ISRO Location Code)',
+        helpDigipin: '6-digit postal code',
+        labelLanguage: 'Preferred Language', labelState: 'State', labelOccupation: 'Occupation', labelIncome: 'Annual Income (₹)',
+        helpIncome: 'Used for scheme eligibility matching',
+        optSelect: 'Select occupation', optFarmer: 'Farmer', optStudent: 'Student', optGovt: 'Government Employee',
+        optPrivate: 'Private Sector', optBusiness: 'Business Owner', optHomemaker: 'Homemaker', optRetired: 'Retired', optOther: 'Other',
+        privacyNote: 'Your data is encrypted and stored locally. We never share your information.',
+        dataSrc: 'Community data synced with device storage',
+        toastSaved: 'Community data refreshed!',
+        namePlaceholder: 'Enter your full name',
+        statePlaceholder: 'e.g., Maharashtra',
+      },
+      bn: {
+        tabImpact: 'প্রভাব',
+        headerImpact: 'প্রভাব ড্যাশবোর্ড',
+        labelKarma: 'কর্মা স্কোর', labelContributions: 'অবদান',
+        formTitle: 'প্রোফাইল সম্পাদনা', btnSave: 'পরিবর্তন সংরক্ষণ',
+        labelName: 'পুরো নাম', labelDigipin: 'DIGIPIN (ISRO অবস্থান কোড)',
+        helpDigipin: '৬ সংখ্যার পিন কোড',
+        labelLanguage: 'পছন্দের ভাষা', labelState: 'রাজ্য', labelOccupation: 'পেশা', labelIncome: 'বার্ষিক আয় (₹)',
+        helpIncome: 'প্রকল্পের যোগ্যতা মেলানোর জন্য ব্যবহৃত হয়',
+        optSelect: 'পেশা নির্বাচন করুন', optFarmer: 'কৃষক', optStudent: 'ছাত্র', optGovt: 'সরকারি কর্মচারী',
+        optPrivate: 'বেসরকারি খাত', optBusiness: 'ব্যবসায়ী', optHomemaker: 'গৃহিণী', optRetired: 'অবসরপ্রাপ্ত', optOther: 'অন্যান্য',
+        privacyNote: 'আপনার ডেটা এনক্রিপ্ট করা এবং স্থানীয়ভাবে সংরক্ষিত। আমরা আপনার তথ্য কখনই শেয়ার করি না।',
+        dataSrc: 'প্রোফাইল ডিভাইস স্টোরেজের সাথে সমন্বয়িত',
+        toastSaved: 'প্রোফাইল সংরক্ষিত!',
+        namePlaceholder: 'আপনার পুরো নাম লিখুন',
+        statePlaceholder: 'যেমন, মহারাষ্ট্র',
+      },
+      te: {
+        tabImpact: 'ప్రభావం',
+        headerImpact: 'ప్రభావ డ్యాష్‌బోర్డ్',
+        labelKarma: 'కర్మ స్కోర్', labelContributions: 'సహకారాలు',
+        formTitle: 'ప్రొఫైల్ సవరించు', btnSave: 'మార్పులు సేవ్ చేయి',
+        labelName: 'పూర్తి పేరు', labelDigipin: 'DIGIPIN (ISRO లొకేషన్ కోడ్)',
+        helpDigipin: '6 అంకెల పిన్ కోడ్',
+        labelLanguage: 'ఇష్టమైన భాష', labelState: 'రాష్ట్రం', labelOccupation: 'వృత్తి', labelIncome: 'వార్షిక ఆదాయం (₹)',
+        helpIncome: 'పథకం అర్హత మ్యాచింగ్ కోసం ఉపయోగించబడుతుంది',
+        optSelect: 'వృత్తిని ఎంచుకోండి', optFarmer: 'రైతు', optStudent: 'విద్యార్థి', optGovt: 'ప్రభుత్వ ఉద్యోగి',
+        optPrivate: 'ప్రైవేట్ రంగం', optBusiness: 'వ్యాపారి', optHomemaker: 'గృహిణి', optRetired: 'నివృత్తి', optOther: 'ఇతర',
+        privacyNote: 'మీ డేటా గుప్తీకరించబడింది మరియు స్థానికంగా నిల్వ చేయబడింది.',
+        dataSrc: 'ప్రొఫైల్ పరికర నిల్వతో సమకాలీకరించబడింది',
+        toastSaved: 'ప్రొఫైల్ సేవ్ అయింది!',
+        namePlaceholder: 'మీ పూర్తి పేరు నమోదు చేయండి',
+        statePlaceholder: 'ఉదా., మహారాష్ట్ర',
+      },
+      mr: {
+        tabImpact: 'प्रभाव',
+        headerImpact: 'प्रभाव डॅशबोर्ड',
+        labelKarma: 'कर्मा स्कोर', labelContributions: 'योगदान',
+        formTitle: 'प्रोफाइल संपादित करा', btnSave: 'बदल जतन करा',
+        labelName: 'पूर्ण नाव', labelDigipin: 'DIGIPIN (ISRO स्थान कोड)',
+        helpDigipin: '6 अंकी पिन कोड',
+        labelLanguage: 'पसंतीची भाषा', labelState: 'राज्य', labelOccupation: 'व्यवसाय', labelIncome: 'वार्षिक उत्पन्न (₹)',
+        helpIncome: 'योजना पात्रता जुळवणीसाठी वापरले जाते',
+        optSelect: 'व्यवसाय निवडा', optFarmer: 'शेतकरी', optStudent: 'विद्यार्थी', optGovt: 'सरकारी कर्मचारी',
+        optPrivate: 'खाजगी क्षेत्र', optBusiness: 'व्यावसायिक', optHomemaker: 'गृहिणी', optRetired: 'निवृत्त', optOther: 'इतर',
+        privacyNote: 'तुमचा डेटा एन्क्रिप्टेड आहे आणि स्थानिक पातळीवर संग्रहीत आहे.',
+        dataSrc: 'प्रोफाइल डिव्हाइस स्टोरेजशी समक्रमित',
+        toastSaved: 'प्रोफाइल जतन केली!',
+        namePlaceholder: 'तुमचे पूर्ण नाव प्रविष्ट करा',
+        statePlaceholder: 'उदा., महाराष्ट्र',
+      },
+      ta: {
+        tabImpact: 'தாக்கம்',
+        headerImpact: 'தாக்க டாஷ்போர்டு',
+        labelKarma: 'கர்மா மதிப்பெண்', labelContributions: 'பங்களிப்புகள்',
+        formTitle: 'சுயவிவரம் திருத்து', btnSave: 'மாற்றங்களை சேமி',
+        labelName: 'முழு பெயர்', labelDigipin: 'DIGIPIN (ISRO இட குறியீடு)',
+        helpDigipin: '6 இலக்க அஞ்சல் குறியீடு',
+        labelLanguage: 'விருப்பமான மொழி', labelState: 'மாநிலம்', labelOccupation: 'தொழில்', labelIncome: 'வருடாந்திர வருமானம் (₹)',
+        helpIncome: 'திட்ட தகுதி பொருத்தத்திற்கு பயன்படுத்தப்படுகிறது',
+        optSelect: 'தொழிலை தேர்ந்தெடுக்கவும்', optFarmer: 'விவசாயி', optStudent: 'மாணவர்', optGovt: 'அரசு ஊழியர்',
+        optPrivate: 'தனியார் துறை', optBusiness: 'வணிகர்', optHomemaker: 'இல்லத்தரசி', optRetired: 'ஓய்வு பெற்றவர்', optOther: 'மற்றவை',
+        privacyNote: 'உங்கள் தரவு என்க்ரிப்ட் செய்யப்பட்டு உள்ளூரில் சேமிக்கப்படுகிறது.',
+        dataSrc: 'சுயவிவரம் சாதன சேமிப்பகத்துடன் ஒத்திசைக்கப்பட்டது',
+        toastSaved: 'சுயவிவரம் சேமிக்கப்பட்டது!',
+        namePlaceholder: 'உங்கள் முழு பெயரை உள்ளிடுக',
+        statePlaceholder: 'எ.கா., மகாராஷ்டிரா',
+      },
+      gu: {
+        tabImpact: 'અસર',
+        headerImpact: 'અસર ડેશબોર્ડ',
+        labelKarma: 'કર્મ સ્કોર', labelContributions: 'યોગદાન',
+        formTitle: 'પ્રોફાઇલ સંપાદિત કરો', btnSave: 'ફેરફારો સાચવો',
+        labelName: 'પૂર્ણ નામ', labelDigipin: 'DIGIPIN (ISRO સ્થાન કોડ)',
+        helpDigipin: '6 અંકનો પિન કોડ',
+        labelLanguage: 'પસંદગીની ભાષા', labelState: 'રાજ્ય', labelOccupation: 'વ્યવસાય', labelIncome: 'વાર્ષિક આવક (₹)',
+        helpIncome: 'યોજના પાત્રતા મેળ માટે ઉપયોગ થાય છે',
+        optSelect: 'વ્યવસાય પસંદ કરો', optFarmer: 'ખેડૂત', optStudent: 'વિદ્યાર્થી', optGovt: 'સરકારી કર્મચારી',
+        optPrivate: 'ખાનગી ક્ષેત્ર', optBusiness: 'વ્યવસાયી', optHomemaker: 'ગૃહિણી', optRetired: 'નિવૃત્ત', optOther: 'અન્ય',
+        privacyNote: 'તમારો ડેટા એન્ક્રિપ્ટ છે અને સ્થાનિક રીતે સંગ્રહિત છે.',
+        dataSrc: 'પ્રોફાઇલ ઉપકરણ સ્ટોરેજ સાથે સિંક',
+        toastSaved: 'પ્રોફાઇલ સાચવાઈ!',
+        namePlaceholder: 'તમારું પૂર્ણ નામ દાખલ કરો',
+        statePlaceholder: 'જેમ કે, મહારાષ્ટ્ર',
+      },
+      kn: {
+        tabImpact: 'ಪ್ರಭಾವ',
+        headerImpact: 'ಪ್ರಭಾವ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+        labelKarma: 'ಕರ್ಮ ಸ್ಕೋರ್', labelContributions: 'ಕೊಡುಗೆಗಳು',
+        formTitle: 'ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ', btnSave: 'ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ',
+        labelName: 'ಪೂರ್ಣ ಹೆಸರು', labelDigipin: 'DIGIPIN (ISRO ಸ್ಥಳ ಕೋಡ್)',
+        helpDigipin: '6 ಅಂಕಿಯ ಪಿನ್ ಕೋಡ್',
+        labelLanguage: 'ಆದ್ಯತೆಯ ಭಾಷೆ', labelState: 'ರಾಜ್ಯ', labelOccupation: 'ವೃತ್ತಿ', labelIncome: 'ವಾರ್ಷಿಕ ಆದಾಯ (₹)',
+        helpIncome: 'ಯೋಜನೆಯ ಅರ್ಹತೆ ಹೊಂದಾಣಿಕೆಗಾಗಿ ಬಳಸಲಾಗುತ್ತದೆ',
+        optSelect: 'ವೃತ್ತಿ ಆಯ್ಕೆ ಮಾಡಿ', optFarmer: 'ರೈತ', optStudent: 'ವಿದ್ಯಾರ್ಥಿ', optGovt: 'ಸರ್ಕಾರಿ ನೌಕರ',
+        optPrivate: 'ಖಾಸಗಿ ವಲಯ', optBusiness: 'ವ್ಯಾಪಾರಿ', optHomemaker: 'ಗೃಹಿಣಿ', optRetired: 'ನಿವೃತ್ತ', optOther: 'ಇತರೆ',
+        privacyNote: 'ನಿಮ್ಮ ಡೇಟಾ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿದೆ ಮತ್ತು ಸ್ಥಳೀಯವಾಗಿ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ.',
+        dataSrc: 'ಪ್ರೊಫೈಲ್ ಸಾಧನ ಸಂಗ್ರಹಣೆಯೊಂದಿಗೆ ಸಿಂಕ್',
+        toastSaved: 'ಪ್ರೊಫೈಲ್ ಉಳಿಸಲಾಗಿದೆ!',
+        namePlaceholder: 'ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ನಮೂದಿಸಿ',
+        statePlaceholder: 'ಉದಾ., ಮಹಾರಾಷ್ಟ್ರ',
+      },
+      ml: {
+        tabImpact: 'സ്വാധീനം',
+        headerImpact: 'സ്വാധീന ഡാഷ്‌ബോർഡ്',
+        labelKarma: 'കർമ്മ സ്കോർ', labelContributions: 'സംഭാവനകൾ',
+        formTitle: 'പ്രൊഫൈൽ എഡിറ്റ് ചെയ്യുക', btnSave: 'മാറ്റങ്ങൾ സേവ് ചെയ്യുക',
+        labelName: 'പൂർണ്ണ നാമം', labelDigipin: 'DIGIPIN (ISRO ലൊക്കേഷൻ കോഡ്)',
+        helpDigipin: '6 അക്ക പിൻ കോഡ്',
+        labelLanguage: 'ഇഷ്ടപ്പെട്ട ഭാഷ', labelState: 'സംസ്ഥാനം', labelOccupation: 'തൊഴിൽ', labelIncome: 'വാർഷിക വരുമാനം (₹)',
+        helpIncome: 'പദ്ധതി യോഗ്യത മ്യാച്ചിംഗിനായി ഉപയോഗിക്കുന്നു',
+        optSelect: 'തൊഴിൽ തിരഞ്ഞെടുക്കുക', optFarmer: 'കർഷകൻ', optStudent: 'വിദ്യാർത്ഥി', optGovt: 'സർക്കാർ ജീവനക്കാരൻ',
+        optPrivate: 'സ്വകാര്യ മേഖല', optBusiness: 'വ്യാപാരി', optHomemaker: 'ഗൃഹിണി', optRetired: 'വിരമിച്ചവർ', optOther: 'മറ്റുള്ളവ',
+        privacyNote: 'നിങ്ങളുടെ ഡാറ്റ എൻക്രിപ്റ്റ് ചെയ്ത് ലോക്കലായി സൂക്ഷിക്കുന്നു.',
+        dataSrc: 'പ്രൊഫൈൽ ഡിവൈസ് സ്റ്റോറേജുമായി സിൻക്',
+        toastSaved: 'പ്രൊഫൈൽ സേവ് ചെയ്തു!',
+        namePlaceholder: 'നിങ്ങളുടെ പൂർണ്ണ നാമം നൽകുക',
+        statePlaceholder: 'ഉദാ., മഹാരാഷ്ട്ര',
+      },
+      pa: {
+        tabImpact: 'ਪ੍ਰਭਾਵ',
+        headerImpact: 'ਪ੍ਰਭਾਵ ਡੈਸ਼ਬੋਰਡ',
+        labelKarma: 'ਕਰਮਾ ਸਕੋਰ', labelContributions: 'ਯੋਗਦਾਨ',
+        formTitle: 'ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ', btnSave: 'ਬਦਲਾਅ ਸੁਰੱਖਿਅਤ ਕਰੋ',
+        labelName: 'ਪੂਰਾ ਨਾਮ', labelDigipin: 'DIGIPIN (ISRO ਟਿਕਾਣਾ ਕੋਡ)',
+        helpDigipin: '6 ਅੰਕਾਂ ਦਾ ਪਿੰਨ ਕੋਡ',
+        labelLanguage: 'ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ', labelState: 'ਰਾਜ', labelOccupation: 'ਪੇਸ਼ਾ', labelIncome: 'ਸਾਲਾਨਾ ਆਮਦਨ (₹)',
+        helpIncome: 'ਯੋਜਨਾ ਯੋਗਤਾ ਮੇਲ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ',
+        optSelect: 'ਪੇਸ਼ਾ ਚੁਣੋ', optFarmer: 'ਕਿਸਾਨ', optStudent: 'ਵਿਦਿਆਰਥੀ', optGovt: 'ਸਰਕਾਰੀ ਕਰਮਚਾਰੀ',
+        optPrivate: 'ਨਿੱਜੀ ਖੇਤਰ', optBusiness: 'ਕਾਰੋਬਾਰੀ', optHomemaker: 'ਘਰੇਲੂ ਔਰਤ', optRetired: 'ਸੇਵਾਮੁਕਤ', optOther: 'ਹੋਰ',
+        privacyNote: 'ਤੁਹਾਡਾ ਡੇਟਾ ਐਨਕ੍ਰਿਪਟ ਹੈ ਅਤੇ ਸਥਾਨਕ ਤੌਰ ਤੇ ਸੁਰੱਖਿਅਤ ਹੈ।',
+        dataSrc: 'ਪ੍ਰੋਫਾਈਲ ਡਿਵਾਈਸ ਸਟੋਰੇਜ ਨਾਲ ਸਿੰਕ',
+        toastSaved: 'ਪ੍ਰੋਫਾਈਲ ਸੁਰੱਖਿਅਤ!',
+        namePlaceholder: 'ਆਪਣਾ ਪੂਰਾ ਨਾਮ ਦਾਖਲ ਕਰੋ',
+        statePlaceholder: 'ਜਿਵੇਂ, ਮਹਾਰਾਸ਼ਟਰ',
+      },
+      ur: {
+        tabImpact: 'اثر',
+        headerImpact: 'اثر ڈیش بورڈ',
+        labelKarma: 'کرما اسکور', labelContributions: 'شراکتیں',
+        formTitle: 'پروفائل ترمیم کریں', btnSave: 'تبدیلیاں محفوظ کریں',
+        labelName: 'پورا نام', labelDigipin: 'DIGIPIN (ISRO مقام کوڈ)',
+        helpDigipin: '6 ہندسوں کا پن کوڈ',
+        labelLanguage: 'پسندیدہ زبان', labelState: 'ریاست', labelOccupation: 'پیشہ', labelIncome: 'سالانہ آمدنی (₹)',
+        helpIncome: 'اسکیم اہلیت مطابقت کے لیے استعمال ہوتا ہے',
+        optSelect: 'پیشہ منتخب کریں', optFarmer: 'کسان', optStudent: 'طالب علم', optGovt: 'سرکاری ملازم',
+        optPrivate: 'نجی شعبہ', optBusiness: 'تاجر', optHomemaker: 'گھریلو خاتون', optRetired: 'ریٹائرڈ', optOther: 'دیگر',
+        privacyNote: 'آپ کا ڈیٹا انکرپٹڈ ہے اور مقامی طور پر محفوظ ہے۔',
+        dataSrc: 'پروفائل ڈیوائس اسٹوریج کے ساتھ ہم آہنگ',
+        toastSaved: 'پروفائل محفوظ!',
+        namePlaceholder: 'اپنا پورا نام درج کریں',
+        statePlaceholder: 'مثلاً، مہاراشٹرا',
+      },
+    };
+    function getLang() {
+      try { var s = localStorage.getItem('bharat-setu-store'); if (s) { var p = JSON.parse(s); return (p.state && p.state.userProfile && p.state.userProfile.language) || 'hi'; } } catch(e) {}
+      return 'hi';
+    }
+    function t(key) {
+      var lang = getLang().split('-')[0];
+      var dict = T[lang] || T['en'];
+      return dict[key] || T['en'][key] || key;
+    }
+
+    // ── Apply translations to all UI elements ─────────────────────────────
+    function applyTranslations() {
+      // Impact translations only now
+      document.getElementById('header-title').textContent = t('headerImpact');
+      var el = document.getElementById('community-district-title');
+      if (el) el.textContent = t('headerImpact');
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', function() {
+      applyTranslations();
+    });
+
+    // ── Parent messages ───────────────────────────────────────────────────
+    window.addEventListener('message', function (e) {
+      if (!e.data || e.data.source !== 'bharat-setu-parent') return;
+      if (e.data.action === 'user-update') {
+        var d = e.data;
+        var el;
+        if ((el = document.getElementById('community-district-title')) && d.district)
+          el.textContent = d.district + (d.state ? ', ' + d.state : '');
+        if ((el = document.getElementById('community-contributions')) && d.trackedCount !== undefined)
+          el.textContent = d.trackedCount + ' Grievances';
+      }
+    });
+  </script>
+  <!-- Bottom Navigation Bar -->
+  <nav class="fixed bottom-0 w-full bg-surface/95 backdrop-blur-xl border-t border-white/10 pb-6 pt-3 px-6">
+    <div class="max-w-md mx-auto flex justify-between items-center">
+      <a class="flex flex-col items-center gap-1 text-slate-500 hover:text-primary transition-colors" href="#">
+        <span class="material-symbols-outlined">home</span>
+        <span class="text-[10px] font-semibold" data-i18n="home">Home</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-primary" href="#">
+        <span class="material-symbols-outlined fill-[1]">bar_chart</span>
+        <span class="text-[10px] font-semibold" data-i18n="impact">Impact</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-500 hover:text-primary transition-colors" href="#">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="text-[10px] font-semibold" data-i18n="governance">Governance</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-500 hover:text-primary transition-colors" href="#">
+        <span class="material-symbols-outlined">forum</span>
+        <span class="text-[10px] font-semibold" data-i18n="community">Community</span>
+      </a>
+    </div>
+  </nav>
+  <script>
+    (function () {
+      function syncTheme() {
+        try {
+          var isDark = window.parent.document.documentElement.classList.contains('dark');
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch (e) { }
+      }
+      syncTheme();
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.action === 'sync-theme') {
+          document.documentElement.classList.toggle('dark', e.data.theme === 'dark');
+        }
+      });
+    })();
+  </script>
+
+
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

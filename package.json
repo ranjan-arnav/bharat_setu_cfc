@@ -1,0 +1,58 @@
+{
+  "name": "bharat-setu",
+  "version": "2.0.0",
+  "description": "Bharat Setu - Bridging the Digital Divide with Agentic Governance",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "dev:backend": "python BACKEND/classifier/server.py",
+    "dev:all": "concurrently --kill-others \"npm run dev\" \"npm run dev:backend\"",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "eval:legal": "node scripts/legal-eval.cjs",
+    "azure:search:setup": "node scripts/setup-azure-search-indexes.cjs"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.4.1",
+    "@azure/storage-blob": "^12.28.0",
+    "@azure/storage-queue": "^12.28.0",
+    "@fontsource/material-symbols-outlined": "^5.2.38",
+    "@google/genai": "^2.10.0",
+    "@mistralai/mistralai": "^1.14.1",
+    "applicationinsights": "^3.14.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.15.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^0.468.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.40.0",
+    "next": "^14.2.35",
+    "next-themes": "^0.4.6",
+    "pdf-parse": "^2.4.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.0",
+    "tailwind-merge": "^2.6.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@eslint/eslintrc": "^3.3.4",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.2.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.21",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
+  }
+}

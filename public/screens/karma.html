@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Civic Karma Leaderboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f29e0d",
+            "background-light": "#f8f7f5",
+            "background-dark": "#0a1628",
+          },
+          fontFamily: {
+            "display": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button class="flex items-center justify-center p-2 rounded-full hover:bg-white/10">
+        <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+      </button>
+      <h1 class="text-lg font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary fill-1">trophy</span><span data-i18n="civicKarma">Civic Karma</span></h1>
+    </div>
+    <div class="flex items-center gap-1 bg-primary/20 text-primary px-3 py-1 rounded-full border border-primary/30">
+      <span class="material-symbols-outlined text-sm">location_on</span>
+      <span class="text-xs font-bold uppercase tracking-wider" id="karma-district-badge" data-i18n="dumkaDistrict">Dumka District</span>
+    </div>
+  </header>
+  <main class="flex-1 overflow-y-auto pb-24">
+    <!-- Hero: Your Karma Card -->
+    <section class="p-4">
+      <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-white/10 dark:to-white/5 border border-slate-200 dark:border-white/20 p-6 backdrop-blur-xl shadow-2xl">
+        <!-- Decorative background elements -->
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1" data-i18n="totalBalance">Total Balance</p>
+            <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+              <span id="karma-total">847</span> <span class="text-primary text-xl" data-i18n="karma">Karma</span>
+              <span class="material-symbols-outlined text-primary text-3xl animate-pulse">star</span>
+            </h2>
+          </div>
+          <div class="flex flex-col items-end">
+            <div class="bg-slate-100 dark:bg-white/10 px-3 py-1 rounded-lg flex items-center gap-2 border border-slate-200 dark:border-white/10">
+              <span class="material-symbols-outlined text-primary text-sm">local_fire_department</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-white"><span id="karma-streak">12</span><span data-i18n="dayStreak">-day streak</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <div class="flex justify-between items-end">
+            <div class="flex items-center gap-2">
+              <div class="bg-slate-300 dark:bg-slate-400 p-1 rounded-full shadow-lg">
+                <span class="material-symbols-outlined text-background-dark text-lg fill-1">workspace_premium</span>
+              </div>
+              <span class="font-bold text-slate-900 dark:text-white uppercase tracking-widest text-xs" id="karma-tier" data-i18n="silverCitizen">Silver Citizen</span>
+            </div>
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-tight" id="karma-progress-text" data-i18n="8471100ToGold">847 / 1100 to
+              Gold</span>
+          </div>
+          <div class="w-full bg-slate-200 dark:bg-white/10 h-3 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-primary to-orange-400 h-full rounded-full" id="karma-progress-bar" style="width: 77%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Karma Breakdown (Horizontal Scroll) -->
+    <section class="mb-6">
+      <h3 class="px-4 text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3" data-i18n="karmaBreakdown">Karma Breakdown</h3>
+      <div class="flex gap-3 overflow-x-auto px-4 pb-2 no-scrollbar">
+        <div class="flex-shrink-0 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-3 rounded-xl flex flex-col items-center gap-1 min-w-[100px]">
+          <span class="material-symbols-outlined text-primary">campaign</span>
+          <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="grievances">Grievances</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white text-primary">+70</span>
+        </div>
+        <div class="flex-shrink-0 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-3 rounded-xl flex flex-col items-center gap-1 min-w-[100px]">
+          <span class="material-symbols-outlined text-primary">diversity_3</span>
+          <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="helped">Helped</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white text-primary">+150</span>
+        </div>
+        <div class="flex-shrink-0 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-3 rounded-xl flex flex-col items-center gap-1 min-w-[100px]">
+          <span class="material-symbols-outlined text-primary">description</span>
+          <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="schemes">Schemes</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white text-primary">+100</span>
+        </div>
+        <div class="flex-shrink-0 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-3 rounded-xl flex flex-col items-center gap-1 min-w-[100px]">
+          <span class="material-symbols-outlined text-primary">verified</span>
+          <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="verified">Verified</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white text-primary">+120</span>
+        </div>
+        <div class="flex-shrink-0 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-3 rounded-xl flex flex-col items-center gap-1 min-w-[100px]">
+          <span class="material-symbols-outlined text-primary">rate_review</span>
+          <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="reviews">Reviews</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white text-primary">+80</span>
+        </div>
+      </div>
+    </section>
+    <!-- Social Proof Banner -->
+    <section class="px-4 mb-6">
+      <div class="bg-gradient-to-r from-emerald-600/30 to-teal-500/30 border border-emerald-500/30 rounded-xl p-4 flex items-center gap-4">
+        <div class="bg-emerald-500 rounded-full p-2 flex-shrink-0 shadow-lg shadow-emerald-500/20">
+          <span class="material-symbols-outlined text-white">celebration</span>
+        </div>
+        <p class="text-sm leading-tight text-emerald-50 font-medium">
+          <span id="karma-banner-district" data-i18n="dumka">Dumka</span><span data-i18n="citizensResolved">citizens resolved</span><span class="font-bold underline" data-i18n="234Issues">234
+            issues</span><span data-i18n="together">together!</span><br><span data-i18n="top3InJharkhand">Top 3 in Jharkhand! 🎉</span></p>
+      </div>
+    </section>
+    <!-- Weekly Challenges -->
+    <section class="px-4 mb-8">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest" data-i18n="weeklyChallenges">Weekly Challenges</h3>
+        <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-i18n="endsIn2Days">Ends in 2 days</span>
+      </div>
+      <div class="space-y-3">
+        <!-- Task 1 -->
+        <div class="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-4 rounded-xl">
+          <div class="flex justify-between mb-2">
+            <p class="text-sm font-semibold text-slate-900 dark:text-slate-100" data-i18n="report3CivicIssues">Report 3 civic issues</p>
+            <span class="text-xs font-bold text-primary" data-i18n="50Pts">+50 pts</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 bg-slate-200 dark:bg-white/10 h-2 rounded-full overflow-hidden">
+              <div class="bg-primary h-full rounded-full" style="width: 66%"></div>
+            </div>
+            <span class="text-xs font-bold text-slate-500 dark:text-slate-400">2/3</span>
+          </div>
+        </div>
+        <!-- Task 2 -->
+        <div class="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-4 rounded-xl opacity-80">
+          <div class="flex justify-between mb-2">
+            <p class="text-sm font-semibold text-slate-900 dark:text-slate-100" data-i18n="help2NeighborsWith">Help 2 neighbors with PM-KISAN</p>
+            <span class="text-xs font-bold text-primary" data-i18n="100Pts">+100 pts</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 bg-slate-200 dark:bg-white/10 h-2 rounded-full overflow-hidden">
+              <div class="bg-primary h-full rounded-full" style="width: 0%"></div>
+            </div>
+            <span class="text-xs font-bold text-slate-500 dark:text-slate-400">0/2</span>
+          </div>
+        </div>
+        <!-- Task 3 -->
+        <div class="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-4 rounded-xl">
+          <div class="flex justify-between mb-2">
+            <p class="text-sm font-semibold text-slate-900 dark:text-slate-100" data-i18n="verify5ResolvedGrievances">Verify 5 resolved grievances</p>
+            <span class="text-xs font-bold text-primary" data-i18n="40Pts">+40 pts</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 bg-slate-200 dark:bg-white/10 h-2 rounded-full overflow-hidden">
+              <div class="bg-primary h-full rounded-full" style="width: 60%"></div>
+            </div>
+            <span class="text-xs font-bold text-slate-500 dark:text-slate-400">3/5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- District Leaderboard -->
+    <section class="px-4 mb-12">
+      <h3 class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4"><span id="karma-leaderboard-title" data-i18n="dumkaDistrict">Dumka District</span><span data-i18n="leaderboard">Leaderboard</span></h3>
+      <div class="space-y-2">
+        <!-- Rank 1 -->
+        <div class="flex items-center justify-between p-3 bg-gradient-to-r from-primary/10 to-transparent rounded-xl border border-primary/20">
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <img alt="Priya Devi Avatar" class="size-10 rounded-full border-2 border-primary" data-alt="Portrait of a friendly Indian woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDua6IXr4aYELUrjcZcOpldfMu6vVeLPaugnz94bs6uVjahPA67xC7bs42rT05H-Q_1Su6nR6y_yN26af9Qca-GPiFsIfPKtmew36GOOrL1Lmip2mqnlLDDWD_1uWA5U7M9yasqDX9BNodrmKNkeHSwBgL7FtvSkHDJ2pAqrz-d7DcLAzlStBU91HXUmOJHq3cKBbsDKUQ6r4SsYvfLOQ2W3OMB4jnlJvOEOqz1MS17D4Pd1AKzcJZQIW8xadRiuPUKjmdH_LcEYio">
+              <div class="absolute -top-2 -left-2 bg-primary text-background-dark text-[10px] font-bold px-1.5 py-0.5 rounded-full ring-2 ring-background-dark">
+                #1</div>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="priyaDevi">Priya Devi</p>
+              <p class="text-[10px] font-bold text-primary uppercase" data-i18n="setuHero">Setu Hero</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-bold text-slate-900 dark:text-white">2,450</p>
+            <p class="text-[10px] text-slate-500 dark:text-slate-400" data-i18n="karma">Karma</p>
+          </div>
+        </div>
+        <!-- Rank 2 -->
+        <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <img alt="Rajesh Kumar Avatar" class="size-10 rounded-full grayscale" data-alt="Portrait of a middle aged man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlXJWehiJ-RAEHpY683SyS8b-HuLV8RW2WNskndq8tbEYEZnLEs1vxJYBBi7AxbAnRtX-6cxd9-MMmBY3HPoTYiaNIF1AYOTL-rlE3yCu-Ri9Uftzmhj4Wzl0nkMyKkHyjz7xqL9fwY8txIliX4DAjKJ-zPk2muvu0e4_Xw7cpZzTbug98KhJxJYMXLoyklF1orugAYuwL4DMaAgZfo4W5FNIx1_KeLZU5xlB0LWZwMx1xHId05YJ48-36rqAIvl9tONR7RXl06P8">
+              <div class="absolute -top-1 -left-1 bg-slate-400 text-background-dark text-[10px] font-bold px-1 py-0.5 rounded-full ring-2 ring-background-dark">
+                #2</div>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="rajeshKumar">Rajesh Kumar</p>
+              <p class="text-[10px] text-slate-500 uppercase" data-i18n="topContributor">Top Contributor</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-bold text-slate-900 dark:text-white">2,120</p>
+            <p class="text-[10px] text-slate-500 dark:text-slate-400" data-i18n="karma">Karma</p>
+          </div>
+        </div>
+        <!-- Spacer -->
+        <div class="flex justify-center py-1">
+          <span class="material-symbols-outlined text-slate-600 text-sm">more_vert</span>
+        </div>
+        <!-- User Rank -->
+        <div class="flex items-center justify-between p-3 bg-primary/20 rounded-xl border border-primary/40 ring-2 ring-primary/20">
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <img alt="Your Avatar" class="size-10 rounded-full border-2 border-white" data-alt="Default user avatar with blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClR9xxAydStCGVgmHm9NMSxBVI46iYwbcLVAtv_VWQEbqB01QYoxl2h17JOraVINPpeaLHe7mthcIk1jyY96iaxWO-_lfh5JatsFMaGJ3_CkwIaYxKdd_6L-JfbfRFOwriTGMGORTyQEzuE5u_6qWY6ICtAeX4fK01vStteolGy9bFBDwCjTj9KUI2lVXTTb7taIhtCRpe7j7CQp0uvAk5Iwv6hoYjoV1VeOiCTSaZZy-BSQZj3EKovZoEZlkvQVFHoLKwIYY3Ze0">
+              <div class="absolute -top-1 -left-1 bg-white text-background-dark text-[10px] font-bold px-1 py-0.5 rounded-full ring-2 ring-background-dark" id="karma-user-rank">#47</div>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-900 dark:text-white" id="karma-you-name" data-i18n="you">You</p>
+              <p class="text-[10px] text-primary font-bold uppercase" id="karma-you-tier" data-i18n="silverCitizen">Silver Citizen</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-bold text-slate-900 dark:text-white" id="karma-you-score">847</p>
+            <p class="text-[10px] text-slate-500 dark:text-slate-400" data-i18n="karma">Karma</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Bottom Action Button -->
+    <section class="px-4 mb-4">
+      <button class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg shadow-[#25D366]/20">
+        <span class="material-symbols-outlined fill-1">share</span><span data-i18n="shareYourCivicKarma">Share your Civic Karma on WhatsApp</span></button>
+    </section>
+  </main>
+  <!-- Bottom Navigation -->
+  <nav class="fixed bottom-0 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 px-6 py-2 pb-6 flex justify-between items-center">
+    <a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-white transition-colors" href="#">
+      <span class="material-symbols-outlined">home</span>
+      <span class="text-[10px] font-medium" data-i18n="home">Home</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-primary transition-colors" href="#">
+      <span class="material-symbols-outlined fill-1">trophy</span>
+      <span class="text-[10px] font-bold" data-i18n="karma">Karma</span>
+    </a>
+    <a class="flex flex-col items-center -mt-8" href="#">
+      <div class="size-14 bg-primary text-background-dark rounded-full flex items-center justify-center shadow-lg shadow-primary/20 border-4 border-background-dark">
+        <span class="material-symbols-outlined text-3xl font-bold">add</span>
+      </div>
+      <span class="text-[10px] font-medium mt-1 text-slate-500 dark:text-slate-400" data-i18n="report">Report</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-white transition-colors" href="#">
+      <span class="material-symbols-outlined">explore</span>
+      <span class="text-[10px] font-medium" data-i18n="explore">Explore</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-white transition-colors" href="#">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[10px] font-medium" data-i18n="profile">Profile</span>
+    </a>
+  </nav>
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  <script>
+      (function () {
+        function applyProfile(d) {
+          var dist = d.district || 'District';
+          var name = d.name ? d.name.split(' ')[0] : 'आप';
+          /* karma calculation */
+          var karma = d.karmaScore || (500 + (d.trackedCount || 3) * 50);
+          var tiers = [
+            { min: 2000, label: 'Setu Hero', next: 9999, nextName: 'Legend' },
+            { min: 1000, label: 'Gold Citizen', next: 2000, nextName: 'Hero' },
+            { min: 400, label: 'Silver Citizen', next: 1000, nextName: 'Gold' },
+            { min: 0, label: 'Naya Nagarik', next: 400, nextName: 'Silver' }
+          ];
+          var t = tiers.find(function (x) { return karma >= x.min; }) || tiers[3];
+          var pct = Math.min(100, Math.round((karma / t.next) * 100));
+          var streakDays = d.streakDays || 12;
+          /* update DOM */
+          var el;
+          if ((el = document.getElementById('karma-district-badge'))) el.textContent = dist + ' District';
+          if ((el = document.getElementById('karma-total'))) el.textContent = karma.toLocaleString('en-IN');
+          if ((el = document.getElementById('karma-streak'))) el.textContent = streakDays;
+          if ((el = document.getElementById('karma-tier'))) el.textContent = t.label;
+          if ((el = document.getElementById('karma-progress-text'))) el.textContent = karma + ' / ' + t.next + ' to ' + t.nextName;
+          if ((el = document.getElementById('karma-progress-bar'))) el.style.width = pct + '%';
+          if ((el = document.getElementById('karma-banner-district'))) el.textContent = dist;
+          if ((el = document.getElementById('karma-leaderboard-title'))) el.textContent = dist + ' District';
+          if ((el = document.getElementById('karma-user-rank'))) el.textContent = '#' + (d.karmaRank || 47);
+          if ((el = document.getElementById('karma-you-name'))) el.textContent = name;
+          if ((el = document.getElementById('karma-you-tier'))) el.textContent = t.label;
+          if ((el = document.getElementById('karma-you-score'))) el.textContent = karma.toLocaleString('en-IN');
+        }
+        window.addEventListener('message', function (e) {
+          if (!e.data || e.data.source !== 'bharat-setu-parent') return;
+          if (e.data.action === 'user-update') applyProfile(e.data);
+        });
+      })();
+  </script>
+  <script>
+    (function () {
+      function syncTheme() {
+        try {
+          var isDark = window.parent.document.documentElement.classList.contains('dark');
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch (e) { }
+      }
+      syncTheme();
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.action === 'sync-theme') {
+          document.documentElement.classList.toggle('dark', e.data.theme === 'dark');
+        }
+      });
+    })();
+  </script>
+
+
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

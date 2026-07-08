@@ -1,0 +1,286 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#eea62b",
+            "background-light": "#f8f7f6",
+            "background-dark": "#0a1628",
+          },
+          fontFamily: {
+            "display": ["Public Sans"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .radial-progress {
+      background: conic-gradient(#eea62b 0% 73%, #1e293b 73% 100%);
+      border-radius: 50%;
+    }
+
+    .inner-circle {
+      background: #0a1628;
+      border-radius: 50%;
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+  <header class="sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md px-4 py-4 flex items-center justify-between border-b border-white/10">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined cursor-pointer hover:bg-white/10 p-1 rounded-full">arrow_back</span>
+      <h1 class="text-lg font-bold" data-i18n="dna">योजना DNA स्कैनर</h1>
+    </div>
+    <div class="relative">
+      <span class="material-symbols-outlined cursor-pointer hover:bg-white/10 p-1 rounded-full">notifications</span>
+      <span class="absolute top-1 right-1 size-2 bg-red-500 rounded-full border border-background-dark"></span>
+    </div>
+  </header>
+  <main class="flex-1 overflow-y-auto px-4 pb-32">
+    <div class="py-8 flex flex-col items-center">
+      <div class="relative size-48 flex items-center justify-center radial-progress">
+        <div class="size-[85%] inner-circle flex flex-col items-center justify-center shadow-inner">
+          <span class="text-4xl font-extrabold text-primary">73%</span>
+          <span class="text-xs uppercase tracking-widest text-slate-400" data-i18n="score">Score</span>
+        </div>
+      </div>
+      <div class="mt-6 text-center max-w-xs">
+        <p class="text-sm font-semibold text-slate-200" data-i18n="yourBenefitScore">Your Benefit Score / आपका लाभ स्कोर</p>
+        <p class="text-xs text-slate-400 mt-1 leading-relaxed" data-i18n="youAreReceiving73">You are receiving 73% of benefits you're eligible for. 4
+          unclaimed schemes found!</p>
+      </div>
+    </div>
+    <div class="glass-card rounded-xl p-4 mb-6 relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-3 opacity-20">
+        <span class="material-symbols-outlined text-4xl">fingerprint</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="size-16 rounded-full border-2 border-primary/30 p-1 bg-gradient-to-tr from-primary/20 to-transparent">
+          <div class="size-full rounded-full bg-cover bg-center" data-alt="Portrait of an Indian farmer Ramesh Kumar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAFIWk5k2cLkEQuZJwq3VZQbX8Vopb8wOL4pcg3gP8wgL6sKBoVsLRVl11b9b5Vr-RkylKrZUsxezvcTijzSdxUkBvAYjaeXdBLvaKiGF8SmJFtNaa_Fiv36YQ58wdzRPT1MkxxtpNpk3tCPkJoarsIqNI0adwRVUDfSjwrz67N2laXk79zdz_0PS_je3_sWos4xEK18sVQvOeeC2jXVkxbx4y_oT1gGETCSvCdlj-1iD20QMyXCARw-fYf7_8E1pdE11ZLOV5d9d4');">
+          </div>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-lg font-bold" id="scheme-user-name" data-i18n="rameshKumar">Ramesh Kumar</h2>
+          <p class="text-[10px] text-primary font-mono tracking-tighter" data-i18n="aadhaarXxxxxxxx4521">Aadhaar XXXX-XXXX-4521</p>
+        </div>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-y-3 gap-x-4 border-t border-white/5 pt-4">
+        <div>
+          <p class="text-[10px] uppercase text-slate-500 font-bold" data-i18n="location">Location</p>
+          <p class="text-xs font-medium" id="scheme-location" data-i18n="dumkaJharkhand">Dumka, Jharkhand</p>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase text-slate-500 font-bold" data-i18n="income">Income</p>
+          <p class="text-xs font-medium" id="scheme-income" data-i18n="48000yr">₹48,000/yr</p>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase text-slate-500 font-bold" data-i18n="occupation">Occupation</p>
+          <p class="text-xs font-medium" id="scheme-occupation" data-i18n="farmer23Acres">Farmer (2.3 acres)</p>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase text-slate-500 font-bold" data-i18n="category">Category</p>
+          <p class="text-xs font-medium" id="scheme-category" data-i18n="stScheduledTribe">ST (Scheduled Tribe)</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-base font-bold" data-i18n="eligibleSchemes">Eligible Schemes</h3>
+      <span class="text-xs text-primary font-medium" data-i18n="viewAll">View All</span>
+    </div>
+    <div class="space-y-4">
+      <div class="glass-card rounded-xl p-4 flex gap-4">
+        <div class="size-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 shrink-0">
+          <span class="material-symbols-outlined text-3xl">agriculture</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-bold" data-i18n="pmkisan">PM-KISAN</p>
+              <p class="text-[10px] text-slate-400">प्रधानमंत्री किसान सम्मान निधि</p>
+            </div>
+            <span class="bg-green-500/20 text-green-400 text-[10px] px-2 py-0.5 rounded-full font-bold" data-i18n="active">ACTIVE</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-xs font-medium" data-i18n="6000Year">₹6,000 / year</span>
+            <span class="text-[10px] text-green-500" data-i18n="98Match">98% Match</span>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card rounded-xl p-4 flex gap-4 border-l-4 border-l-primary/60">
+        <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+          <span class="material-symbols-outlined text-3xl">grass</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-bold" data-i18n="pmfbyCropInsurance">PMFBY Crop Insurance</p>
+              <p class="text-[10px] text-slate-400" data-i18n="pm">PM फसल बीमा योजना</p>
+            </div>
+            <span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold" data-i18n="unclaimed">UNCLAIMED</span>
+          </div>
+          <div class="mt-3 flex items-center justify-between">
+            <span class="text-xs font-medium" data-i18n="fullCoverage">Full Coverage</span>
+            <button class="bg-primary text-background-dark text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-lg shadow-primary/20" data-i18n="tapToAutoapply">Tap
+              to auto-apply</button>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card rounded-xl p-4 flex gap-4">
+        <div class="size-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+          <span class="material-symbols-outlined text-3xl">medical_services</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-bold" data-i18n="ayushmanBharat">Ayushman Bharat</p>
+              <p class="text-[10px] text-slate-400">आयुष्मान भारत योजना</p>
+            </div>
+            <span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold" data-i18n="unclaimed">UNCLAIMED</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-xs font-medium" data-i18n="5LakhCover">₹5 Lakh Cover</span>
+            <span class="text-[10px] text-slate-400" data-i18n="92Match">92% Match</span>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card rounded-xl p-4 flex gap-4">
+        <div class="size-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0">
+          <span class="material-symbols-outlined text-3xl">cottage</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-bold" data-i18n="pmAwasYojana">PM Awas Yojana</p>
+              <p class="text-[10px] text-slate-400">प्रधानमंत्री आवास योजना</p>
+            </div>
+            <span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold" data-i18n="unclaimed">UNCLAIMED</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-xs font-medium" data-i18n="housingGrant">Housing Grant</span>
+            <span class="text-[10px] text-slate-400" data-i18n="87Match">87% Match</span>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card rounded-xl p-4 flex gap-4">
+        <div class="size-12 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500 shrink-0">
+          <span class="material-symbols-outlined text-3xl">work_history</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-bold" data-i18n="mgnrega">MGNREGA</p>
+              <p class="text-[10px] text-slate-400">मनरेगा</p>
+            </div>
+            <span class="bg-green-500/20 text-green-400 text-[10px] px-2 py-0.5 rounded-full font-bold" data-i18n="active">ACTIVE</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-xs font-medium" data-i18n="100DaysWork">100 Days Work</span>
+            <span class="text-[10px] text-slate-400" data-i18n="85Match">85% Match</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div class="fixed bottom-20 left-4 right-4 z-50">
+    <button class="w-full bg-gradient-to-r from-primary to-orange-600 text-background-dark font-bold py-4 rounded-xl shadow-xl shadow-orange-900/40 flex items-center justify-center gap-2 relative">
+      <span class="material-symbols-outlined">smart_toy</span><span data-i18n="autoapplyAllUnclaimedSchemes">Auto-Apply All Unclaimed Schemes</span><span class="absolute -top-2 -right-2 size-6 bg-white text-orange-600 rounded-full flex items-center justify-center text-xs font-black shadow-md border-2 border-orange-600">4</span>
+    </button>
+  </div>
+  <nav class="fixed bottom-0 left-0 right-0 bg-background-dark/95 backdrop-blur-xl border-t border-white/5 pb-6 pt-2 px-6">
+    <div class="flex justify-between items-center">
+      <a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+        <span class="material-symbols-outlined text-[24px]">home</span>
+        <span class="text-[10px] font-medium" data-i18n="home">Home</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+        <span class="material-symbols-outlined text-[24px]">groups</span>
+        <span class="text-[10px] font-medium" data-i18n="agents">Agents</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-primary" href="#">
+        <span class="material-symbols-outlined text-[24px] fill-[1]">assignment</span>
+        <span class="text-[10px] font-medium font-bold" data-i18n="schemes">Schemes</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+        <span class="material-symbols-outlined text-[24px]">location_on</span>
+        <span class="text-[10px] font-medium" data-i18n="track">Track</span>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+        <span class="material-symbols-outlined text-[24px]">person</span>
+        <span class="text-[10px] font-medium" data-i18n="profile">Profile</span>
+      </a>
+    </div>
+  </nav>
+  <script>
+      (function () {
+        window.addEventListener('message', function (e) {
+          if (!e.data || e.data.source !== 'bharat-setu-parent') return;
+          if (e.data.action === 'user-update') {
+            var d = e.data; var el;
+            if ((el = document.getElementById('scheme-user-name')) && d.name) el.textContent = d.name;
+            if ((el = document.getElementById('scheme-location')) && d.district)
+              el.textContent = d.district + (d.state ? ', ' + d.state : '');
+            if ((el = document.getElementById('scheme-income')) && d.income) el.textContent = '\u20b9' + d.income + '/yr';
+            if ((el = document.getElementById('scheme-occupation')) && d.occupation) el.textContent = d.occupation;
+            if ((el = document.getElementById('scheme-category')) && d.rationCardType) el.textContent = d.rationCardType;
+          }
+        });
+      })();
+  </script>
+  <script>
+    (function () {
+      function syncTheme() {
+        try {
+          var isDark = window.parent.document.documentElement.classList.contains('dark');
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch (e) { }
+      }
+      syncTheme();
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.action === 'sync-theme') {
+          document.documentElement.classList.toggle('dark', e.data.theme === 'dark');
+        }
+      });
+    })();
+  </script>
+
+
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>

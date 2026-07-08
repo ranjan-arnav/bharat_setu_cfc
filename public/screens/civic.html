@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Nagarik Mitra: Smart Civic Hub</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#195de6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0a0e17",
+                        "surface-dark": "#161c2b",
+                        "surface-light": "#ffffff",
+                        "accent-success": "#10b981",
+                        "accent-warning": "#f59e0b"
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .ios-blur { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .heatmap-overlay {
+            background: radial-gradient(circle at 30% 40%, rgba(239, 68, 68, 0.4) 0%, transparent 25%),
+                        radial-gradient(circle at 70% 60%, rgba(245, 158, 11, 0.3) 0%, transparent 30%),
+                        radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 20%);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display flex flex-col min-h-screen">
+    <header class="flex items-center justify-between px-4 py-3 bg-surface-light/80 dark:bg-surface-dark/80 ios-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <button class="text-slate-500 dark:text-slate-400">
+                <span class="material-symbols-outlined">menu_open</span>
+            </button>
+            <div>
+                <h1 class="text-lg font-bold leading-tight" data-i18n="nagarikMitra">Nagarik Mitra</h1>
+                <p class="text-[10px] text-primary font-bold uppercase tracking-wider" data-i18n="smartCivicHubBharatsetu">Smart Civic Hub • Bharat-Setu</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="flex flex-col items-end">
+                <span class="text-[10px] font-medium text-accent-success flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 bg-accent-success rounded-full animate-pulse"></span><span data-i18n="iotActive">IoT Active</span></span>
+            </div>
+            <div id="civic-user-initials" class="w-9 h-9 rounded-full bg-gradient-to-tr from-primary to-blue-400 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-primary/20" data-i18n="a">
+                नA
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 overflow-y-auto scrollbar-hide">
+        <div class="relative h-[280px] w-full overflow-hidden">
+            <div class="absolute inset-0 bg-slate-800" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBW2KeRtnOcxl8tXCC4wH5iHylYRXg7LQ2jgamWF7wVu1vGOLmNl_2x7f7ywP8nnBq-AEdTmzO4B_FOqHp7NBVm7Cp4Cw0cB4wLGPlsBMMiBQxPfJuk1FJ4nADdoKsrzZVEZ3oCBFtd7rsLMcCzDajNkhJ0z8_bm2IBURrLiwNTPO9wpqrs-V6uFiSPbCMuN8T6eIu-kLMirbsdUVrGCSHqoVaS2ifWkBUzLUXuuP93mOSP74_7i9vJgerBEDDW-jk54l4ZVhFdqwA'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 heatmap-overlay"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent">
+                </div>
+            </div>
+            <div class="absolute top-4 right-4 bg-surface-dark/80 ios-blur p-2 rounded-lg border border-white/10 text-[10px] space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span> <span data-i18n="highGapInfrastructure">High Gap (Infrastructure)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-orange-500"></span> <span data-i18n="mediumPriority">Medium Priority</span>
+                </div>
+            </div>
+            <div class="absolute bottom-4 left-4 right-4">
+                <div class="bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-sm rounded-xl p-3 border border-slate-200 dark:border-slate-700 shadow-xl">
+                    <div class="flex items-center gap-2 text-xs font-semibold mb-2">
+                        <span class="material-symbols-outlined text-primary text-sm">map</span><span data-i18n="azureMapsLocalCivic">Azure Maps: Local Civic Gaps</span></div>
+                    <div class="text-[11px] text-slate-500 dark:text-slate-400" data-i18n="showingHighpotholeDensityAnd">
+                        Showing high-pothole density and water leakage zones in Ward 42.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 -mt-2 relative z-10 pb-8 space-y-5">
+            <section class="grid grid-cols-2 gap-3">
+                <div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="material-symbols-outlined text-blue-500">water_lux</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase" data-i18n="waterFlow">Water Flow</span>
+                    </div>
+                    <div class="text-2xl font-bold">4.2 <span class="text-xs font-normal text-slate-500" data-i18n="ms">m³/s</span>
+                    </div>
+                    <div class="mt-2 h-1 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500 w-[65%]"></div>
+                    </div>
+                    <p class="text-[9px] mt-2 text-slate-500" data-i18n="azureIotHubLive">Azure IoT Hub: Live</p>
+                </div>
+                <div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="material-symbols-outlined text-accent-success">air</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase" data-i18n="airQuality">Air Quality</span>
+                    </div>
+                    <div class="text-2xl font-bold">42 <span class="text-xs font-normal text-slate-500" data-i18n="aqi">AQI</span></div>
+                    <div class="mt-2 h-1 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-accent-success w-[30%]"></div>
+                    </div>
+                    <p class="text-[9px] mt-2 text-slate-500" data-i18n="sensorNodeBlockC">Sensor Node: Block C</p>
+                </div>
+            </section>
+            <section class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-2xl p-4">
+                <h3 class="text-sm font-bold mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">assignment_turned_in</span><span data-i18n="actionPlanIn3">Action Plan in 3 Steps</span></h3>
+                <div class="flex justify-between items-start relative">
+                    <div class="absolute top-4 left-6 right-6 h-[2px] bg-slate-300 dark:bg-slate-700 -z-0"></div>
+                    <div class="flex flex-col items-center gap-2 z-10 w-1/3">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">
+                            1</div>
+                        <span class="text-[11px] font-semibold text-center" data-i18n="logIssue">Log Issue</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10 w-1/3">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-xs font-bold">
+                            2</div>
+                        <span class="text-[11px] font-semibold text-center" data-i18n="aiVerify">AI Verify</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10 w-1/3">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-xs font-bold">
+                            3</div>
+                        <span class="text-[11px] font-semibold text-center" data-i18n="resolve">Resolve</span>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-2xl p-4 overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-2 bg-accent-warning/20 text-accent-warning text-[10px] font-bold rounded-bl-xl" data-i18n="authorityMode">
+                    AUTHORITY MODE</div>
+                <h3 class="text-sm font-bold mb-3" data-i18n="deployToWardIn">Deploy to Ward in 24h</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3">
+                        <input checked="" class="rounded text-primary focus:ring-primary bg-transparent border-slate-400" type="checkbox">
+                        <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="assignFieldTechnicianAutomated">Assign Field Technician
+                            (Automated)</span>
+                    </label>
+                    <label class="flex items-center gap-3 opacity-60">
+                        <input class="rounded text-primary focus:ring-primary bg-transparent border-slate-400" type="checkbox">
+                        <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="dispatchMaterialKitL02">Dispatch Material Kit (L-02)</span>
+                    </label>
+                    <label class="flex items-center gap-3 opacity-60">
+                        <input class="rounded text-primary focus:ring-primary bg-transparent border-slate-400" type="checkbox">
+                        <span class="text-xs text-slate-600 dark:text-slate-300" data-i18n="verificationPostrepair">Verification Post-Repair</span>
+                    </label>
+                </div>
+                <button class="w-full mt-4 bg-primary py-2.5 rounded-xl text-white text-xs font-bold shadow-lg shadow-primary/20" data-i18n="initiateRapidResponse">Initiate
+                    Rapid Response</button>
+            </section>
+            <section>
+                <h3 class="text-sm font-bold mb-3 px-1 flex justify-between items-center"><span data-i18n="whatChanged">What changed?</span><span class="text-[10px] font-normal text-primary" data-i18n="viewHistory">View History</span>
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-surface-light dark:bg-surface-dark p-3 rounded-xl border-l-4 border-accent-success shadow-sm">
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="text-xs font-bold" data-i18n="streetlightReplacement">Streetlight Replacement</span>
+                            <span class="text-[9px] bg-accent-success/10 text-accent-success px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter" data-i18n="fixed">Fixed</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400" data-i18n="the3ReportedDead">The 3 reported dead lamps at Sector 14
+                            are now operational. Verified by AI vision.</p>
+                    </div>
+                    <div class="bg-surface-light dark:bg-surface-dark p-3 rounded-xl border-l-4 border-accent-warning shadow-sm">
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="text-xs font-bold" data-i18n="potholeFilling">Pothole Filling</span>
+                            <span class="text-[9px] bg-accent-warning/10 text-accent-warning px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter" data-i18n="inProgress">In
+                                Progress</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400" data-i18n="contractorAssignedToMain">Contractor assigned to Main Road.
+                            Expected resolution within 12 hours.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <nav class="bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 pb-safe pt-2 px-6 shadow-[0_-1px_10px_rgba(0,0,0,0.05)]">
+        <div class="flex justify-between items-end pb-3 max-w-md mx-auto">
+            <a class="flex flex-col items-center gap-1 group" href="#">
+                <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">home</span>
+                <span class="text-[10px] font-medium text-slate-400 group-hover:text-primary" data-i18n="home">Home</span>
+            </a>
+            <a class="flex flex-col items-center gap-1" href="#">
+                <div class="relative">
+                    <div class="bg-primary/10 px-5 py-1.5 rounded-full mb-1">
+                        <span class="material-symbols-outlined text-primary fill-current">apartment</span>
+                    </div>
+                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-surface-dark"></span>
+                </div>
+                <span class="text-[10px] font-bold text-primary" data-i18n="civic">Civic</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 group" href="#">
+                <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">description</span>
+                <span class="text-[10px] font-medium text-slate-400 group-hover:text-primary" data-i18n="schemes">Schemes</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 group" href="#">
+                <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">person</span>
+                <span class="text-[10px] font-medium text-slate-400 group-hover:text-primary" data-i18n="profile">Profile</span>
+            </a>
+        </div>
+    </nav>
+    <div class="h-[env(safe-area-inset-bottom)] bg-surface-light/95 dark:bg-surface-dark/95"></div>
+
+    <script>
+            (function () {
+                function syncTheme() {
+                    try {
+                        var isDark = window.parent.document.documentElement.classList.contains('dark');
+                        document.documentElement.classList.toggle('dark', isDark);
+                    } catch (e) { }
+                }
+                syncTheme();
+                window.addEventListener('message', function (e) {
+                    if (e.data && e.data.action === 'sync-theme') {
+                        document.documentElement.classList.toggle('dark', e.data.theme === 'dark');
+                    }
+                });
+            })();
+    </script>
+
+
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data.action === 'apply-translations' && e.data.translations) {
+        var tr = e.data.translations;
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (tr[key]) el.textContent = tr[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (tr[key]) el.setAttribute('placeholder', tr[key]);
+        });
+      }
+    });
+  </script>
+</body></html>
